@@ -254,79 +254,89 @@
 }
 
 @media (max-width: 768px) {
-    /* Mobile header: horizontal bar anchored at top with safe-area padding */
+
+    /* On mobile, keep it horizontal at top */
     .navbar,
     .navbar-vertical {
-        top: max(12px, env(safe-area-inset-top, 12px));
-        left: max(12px, env(safe-area-inset-left, 12px));
-        right: max(12px, env(safe-area-inset-right, 12px));
+        top: 20px;
+        left: 20px;
+        right: 20px;
         transform: none;
-        padding: 8px 16px;
-        border-radius: 20px;
+        padding: 10px 20px;
+        border-radius: 30px;
         border: 1px solid var(--border-color);
-        box-sizing: border-box;
     }
 
-    .nav-container,
     .navbar-vertical .nav-container {
         flex-direction: row;
+        flex-wrap: wrap;
         justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        width: 100%;
+        gap: 16px;
     }
 
-    .nav-logo-mark-wrap {
-        width: 32px;
-        height: 22px;
+    .navbar-vertical .nav-logo {
+        font-size: 24px;
+        margin-bottom: 0;
     }
 
-    .nav-logo-title {
-        font-size: 13px;
-        letter-spacing: 1.2px;
-    }
-
-    .nav-logo-subtitle {
-        font-size: 7px;
-        letter-spacing: 1px;
-    }
-
-    .nav-links,
     .navbar-vertical .nav-links {
         flex-direction: row;
-        gap: 8px;
-        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
     }
 
-    .nav-link,
     .navbar-vertical .nav-link {
-        font-size: 11px;
-        padding: 6px 4px;
         width: auto;
         height: auto;
+        font-size: 20px;
+        padding: 8px;
+    }
+
+    .nav-logo {
+        font-size: 22px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .nav-link {
+        font-size: 11px;
     }
 }
 
 @media (max-width: 480px) {
+
     .navbar,
     .navbar-vertical {
-        padding: 6px 12px;
-        border-radius: 16px;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        padding: 8px 16px;
+        border-radius: 20px;
     }
 
-    .nav-logo-subtitle {
-        display: none; /* Hide micro subtitle on tiny screens so title stays prominent */
+    .nav-logo {
+        font-size: 20px;
     }
 
-    .nav-links,
-    .navbar-vertical .nav-links {
-        gap: 6px;
+    .navbar-vertical .nav-logo {
+        font-size: 20px;
     }
 
-    .nav-link,
     .navbar-vertical .nav-link {
+        font-size: 18px;
+        padding: 6px;
+    }
+
+    .nav-links {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .nav-link {
         font-size: 10px;
-        padding: 4px 2px;
+        padding: 4px 0;
     }
 }
 
