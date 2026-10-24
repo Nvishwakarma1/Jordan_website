@@ -7,6 +7,7 @@ import Portfolio from "./components/Portfolio";
 import About from "./components/About";
 import CustomerReview from "./components/CustomerReview";
 import Contact from "./components/Contact";
+import ThemeToggle from "./components/ThemeToggle";
 import EstimateCalculator from "./components/EstimateCalculator";
 import YouTubeButton from "./components/YouTubeButton";
 import "./App.css";
@@ -37,6 +38,7 @@ function App() {
       {/* Main Website: Preserved 100% as it was */}
       <div className={`main-website-wrapper ${!introCompleted ? 'intro-overlay-active' : 'intro-revealed'}`}>
         <Navbar />
+        <ThemeToggle />
         <EstimateCalculator />
         <YouTubeButton />
         <HeroSection />

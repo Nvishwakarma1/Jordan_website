@@ -245,48 +245,18 @@
     box-shadow: 0 0 10px rgba(201, 169, 97, 0.5);
 }
 
-/* Responsive Breakpoints */
+/* Responsive */
 @media (max-width: 768px) {
-    .customer-review-section { padding: 70px 4%; min-height: auto; }
-    .review-cards-stage { height: 380px; }
+    .customer-review-section { padding: 80px 5%; min-height: auto; }
+    .review-cards-stage { height: 400px; }
     .review-card { padding: 28px 24px; }
     .review-title { font-size: 28px; }
 }
 
-/* OnePlus Nord 4 (412px), iPhone 14/15/16 Pro */
-@media (max-width: 430px) {
-    .customer-review-section { padding: 54px 3%; }
-    .review-header { margin-bottom: 32px; }
-    .review-title { font-size: 24px; }
-    .review-subtitle-text { font-size: 13.5px; }
-    .review-cards-stage { height: 360px; }
-    .review-card {
-        width: min(350px, calc(100vw - 32px));
-        margin-left: calc(-1 * min(175px, calc(50vw - 16px)));
-        padding: 20px 16px;
-        gap: 12px;
-        border-radius: 16px;
-    }
-    .review-quote-mark { font-size: 50px; margin-bottom: -12px; }
-    .review-text { font-size: 13px; line-height: 1.6; }
-    .reviewer-info { padding-top: 12px; gap: 12px; }
-    .reviewer-avatar { width: 40px; height: 40px; font-size: 15px; }
-    .reviewer-name { font-size: 13.5px; }
-    .reviewer-role { font-size: 10px; }
-    .review-controls { margin-top: 24px; gap: 16px; }
-    .review-nav-btn { width: 40px; height: 40px; }
-}
-
-/* Compact phones <= 360px */
-@media (max-width: 360px) {
-    .review-title { font-size: 22px; }
-    .review-cards-stage { height: 370px; }
-    .review-card {
-        width: calc(100vw - 20px);
-        margin-left: calc(-1 * (50vw - 10px));
-        padding: 18px 12px;
-    }
-    .review-text { font-size: 12px; }
+@media (max-width: 480px) {
+    .review-card { padding: 24px 20px; }
+    .review-cards-stage { height: 440px; }
+    .review-quote-mark { font-size: 60px; }
 }
 
 /* Dark Theme (already dark by nature, minor overrides) */

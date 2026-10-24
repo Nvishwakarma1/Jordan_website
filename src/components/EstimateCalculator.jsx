@@ -12,28 +12,6 @@ const EstimateCalculator = () => {
     })
     const [estimate, setEstimate] = useState(null)
 
-    // Listen for custom open-estimate-modal event from Navbar or anywhere on page
-    useEffect(() => {
-        const handleOpen = () => setIsOpen(true)
-        window.addEventListener('open-estimate-modal', handleOpen)
-        return () => window.removeEventListener('open-estimate-modal', handleOpen)
-    }, [])
-
-    // Escape key and body scroll lock
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') setIsOpen(false)
-        }
-        if (isOpen) {
-            window.addEventListener('keydown', handleKeyDown)
-            document.body.style.overflow = 'hidden'
-        }
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown)
-            document.body.style.overflow = ''
-        }
-    }, [isOpen])
-
     const basePrices = {
         residential: { luxury: 2500, modern: 1800, minimalistic: 1200 },
         commercial: { luxury: 3500, modern: 2500, minimalistic: 1800 }

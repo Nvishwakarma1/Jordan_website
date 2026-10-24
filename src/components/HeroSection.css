@@ -404,59 +404,33 @@
 
 .dot:hover { background: rgba(255,255,255,0.5); }
 
-/* ---- Multi-Resolution Responsive Breakpoints ---- */
+/* ---- Responsive ---- */
 @media (max-width: 1200px) {
     .hero-content { gap: 60px; }
     .hero-carousel-container { height: 480px; }
 }
 
 @media (max-width: 1024px) {
-    .hero-section { padding-top: 100px; min-height: auto; }
     .hero-content { gap: 48px; }
-    .hero-title { font-size: 50px; }
-    .hero-carousel-container { height: 420px; }
+    .hero-title { font-size: 52px; }
+    .hero-carousel-container { height: 440px; }
 }
 
 @media (max-width: 768px) {
-    .hero-section { padding-top: 88px; min-height: auto; }
-    .hero-content { grid-template-columns: 1fr; gap: 40px; }
-    .hero-title { font-size: 42px; line-height: 1.12; }
-    .hero-description { font-size: 15.5px; line-height: 1.75; }
-    .hero-carousel-container { height: 350px; }
-    .hero-buttons { flex-direction: column; gap: 12px; }
+    .hero-section { padding-top: 120px; min-height: auto; }
+    .hero-content { grid-template-columns: 1fr; gap: 48px; }
+    .hero-title { font-size: 44px; }
+    .hero-description { font-size: 16px; }
+    .hero-carousel-container { height: 360px; }
+    .hero-buttons { flex-direction: column; }
     .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
     .cad-markers { display: none; }
     .floating-title { font-size: 18px; }
-    .hero-trust-strip { gap: 16px; }
-    .trust-number { font-size: 20px; }
-    .trust-label { font-size: 10px; }
 }
 
-/* OnePlus Nord 4 (412px), iPhone 14/15/16 Pro (390-430px) */
-@media (max-width: 430px) {
-    .hero-section { padding-top: 78px; }
-    .hero-title { font-size: 34px; line-height: 1.15; }
-    .hero-subtitle { font-size: 10px; letter-spacing: 2px; }
-    .hero-brand-badge { padding: 5px 14px; gap: 8px; }
-    .hero-description { font-size: 14.5px; line-height: 1.7; }
-    .hero-carousel-container { height: 310px; }
-    .btn-primary, .btn-secondary { padding: 13px 20px; font-size: 13px; }
-    .hero-trust-strip { gap: 12px; justify-content: space-between; }
-    .trust-number { font-size: 18px; }
-    .trust-label { font-size: 9.5px; letter-spacing: 1px; }
-    .trust-divider { height: 28px; }
-    .floating-text { bottom: 20px; left: 18px; }
-    .floating-title { font-size: 16px; }
-    .carousel-dots { bottom: 14px; right: 16px; }
-}
-
-/* Compact phones <= 360px */
-@media (max-width: 360px) {
-    .hero-title { font-size: 29px; }
-    .hero-carousel-container { height: 270px; }
-    .hero-trust-strip { gap: 8px; }
-    .trust-number { font-size: 16px; }
-    .trust-label { font-size: 8.5px; }
+@media (max-width: 480px) {
+    .hero-title { font-size: 36px; }
+    .hero-carousel-container { height: 300px; }
 }
 
 /* ---- Dark Theme ---- */
