@@ -203,7 +203,15 @@
     }
 
     .portfolio-filters {
-        margin-bottom: 60px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 8px 18px;
+        font-size: 11px;
     }
 
     .portfolio-image {

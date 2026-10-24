@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import logoSvg from '../assets/Bhaiya.svg';
 import './FrameScrollIntro.css';
 
 const TOTAL_FRAMES = 300;
-// Total scroll delta needed to traverse all 300 frames smoothly
-const SCROLL_SENSITIVITY = 3200;
+// Desktop scroll sensitivity (distance to traverse all frames)
+const DESKTOP_SENSITIVITY = 3000;
+// Mobile touch sensitivity (more responsive for thumb swipes)
+const MOBILE_SENSITIVITY = 1400;
 
 const FrameScrollIntro = ({ onComplete }) => {
   const canvasRef = useRef(null);
@@ -12,6 +14,7 @@ const FrameScrollIntro = ({ onComplete }) => {
   const targetProgressRef = useRef(0);
   const currentProgressRef = useRef(0);
   const lastRenderedFrameRef = useRef(0);
+  const scrubBarRef = useRef(null);
   
   const [isReady, setIsReady] = useState(false);
   const [currentFrame, setCurrentFrame] = useState(0);
@@ -19,6 +22,8 @@ const FrameScrollIntro = ({ onComplete }) => {
   const [isMorphing, setIsMorphing] = useState(false);
   const [morphStyle, setMorphStyle] = useState({});
   const [activeStoryIndex, setActiveStoryIndex] = useState(0);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [loadedPercent, setLoadedPercent] = useState(0);
 
   // Story beats over the 300-frame scroll
   const storyBeats = [
@@ -48,17 +53,22 @@ const FrameScrollIntro = ({ onComplete }) => {
       end: 300,
       tag: '04 / THE SANCTUARY',
       title: 'Elevate Your Lifestyle',
-      subtext: 'All frames complete. Scroll or click to enter website.'
+      subtext: 'All frames complete. Scroll or tap to enter website.'
     }
   ];
 
-  // Helper to format frame path
+  // Detect touch device on mount
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  // Helper to format frame path from public/heroframes
   const getFrameUrl = (index) => {
     const num = String(index + 1).padStart(3, '0');
     return `/heroframes/ezgif-frame-${num}.jpg`;
   };
 
-  // 1. Lock document & body scrolling while intro is active so it CANNOT scroll out of screen
+  // 1. Lock document & body scrolling while intro is active
   useEffect(() => {
     const originalBodyOverflow = document.body.style.overflow;
     const originalHtmlOverflow = document.documentElement.style.overflow;
@@ -72,8 +82,8 @@ const FrameScrollIntro = ({ onComplete }) => {
     };
   }, []);
 
-  // 2. High-DPI Canvas Rendering
-  const drawFrame = (frameIndex) => {
+  // 2. High-DPI Dynamic Canvas Rendering with Mobile Memory Safeguards
+  const drawFrame = useCallback((frameIndex) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -100,19 +110,26 @@ const FrameScrollIntro = ({ onComplete }) => {
 
     if (!img || !img.complete || img.naturalWidth === 0) return;
 
-    const dpr = window.devicePixelRatio || 1;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
+    // Cap DPR at 2.0 to protect mobile GPU memory (preventing iOS Safari canvas crashes)
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    const width = rect.width || window.innerWidth;
+    const height = rect.height || window.innerHeight;
 
-    if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+    if (width === 0 || height === 0) return;
+
+    const targetW = Math.round(width * dpr);
+    const targetH = Math.round(height * dpr);
+
+    if (canvas.width !== targetW || canvas.height !== targetH) {
+      canvas.width = targetW;
+      canvas.height = targetH;
     }
 
     ctx.save();
     ctx.scale(dpr, dpr);
 
-    // Cover fit
+    // Cover-fit calculations adaptive to any screen aspect ratio (mobile vertical, tablet, widescreen)
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = width / height;
     let renderW, renderH, offsetX, offsetY;
@@ -130,27 +147,39 @@ const FrameScrollIntro = ({ onComplete }) => {
     }
 
     ctx.clearRect(0, 0, width, height);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
     ctx.restore();
-  };
+  }, []);
 
-  // 3. Progressive Image Preloading
+  // 3. Progressive Image Preloading with immediate first frame draw
   useEffect(() => {
     let isCancelled = false;
     const images = new Array(TOTAL_FRAMES);
     imagesRef.current = images;
 
-    let loaded = 0;
-    const criticalBatch = Math.min(25, TOTAL_FRAMES);
+    let loadedCount = 0;
+    // Critical first batch: load enough frames for instant initial render & smooth start
+    const criticalBatch = Math.min(15, TOTAL_FRAMES);
 
     const onImageLoad = (idx) => {
       if (isCancelled) return;
-      loaded++;
+      loadedCount++;
+      setLoadedPercent(Math.round((loadedCount / TOTAL_FRAMES) * 100));
+
+      // Draw initial frame as soon as frame 0 loads
       if (idx === 0) {
-        drawFrame(0);
+        requestAnimationFrame(() => {
+          drawFrame(0);
+        });
       }
-      if (loaded >= criticalBatch && !isReady) {
+
+      if (loadedCount >= criticalBatch && !isReady) {
         setIsReady(true);
+        requestAnimationFrame(() => {
+          drawFrame(0);
+        });
       }
     };
 
@@ -168,12 +197,14 @@ const FrameScrollIntro = ({ onComplete }) => {
       let index = criticalBatch;
       const loadNextChunk = () => {
         if (isCancelled || index >= TOTAL_FRAMES) return;
-        const chunkSize = 20;
+        const chunkSize = 25;
         const target = Math.min(index + chunkSize, TOTAL_FRAMES);
 
         for (let i = index; i < target; i++) {
           const img = new Image();
           img.src = getFrameUrl(i);
+          img.onload = () => onImageLoad(i);
+          img.onerror = () => onImageLoad(i);
           images[i] = img;
         }
 
@@ -182,7 +213,7 @@ const FrameScrollIntro = ({ onComplete }) => {
           if ('requestIdleCallback' in window) {
             window.requestIdleCallback(loadNextChunk);
           } else {
-            setTimeout(loadNextChunk, 35);
+            setTimeout(loadNextChunk, 25);
           }
         }
       };
@@ -190,15 +221,39 @@ const FrameScrollIntro = ({ onComplete }) => {
       loadNextChunk();
     };
 
-    const timer = setTimeout(loadRemaining, 100);
+    const timer = setTimeout(loadRemaining, 80);
 
     return () => {
       isCancelled = true;
       clearTimeout(timer);
     };
-  }, []);
+  }, [drawFrame, isReady]);
 
-  // 4. Smooth Animation Loop with Lerp Physics (Keeps Intro locked until all frames scrubbed)
+  // Ensure initial render once canvas mounts
+  useEffect(() => {
+    if (canvasRef.current) {
+      drawFrame(lastRenderedFrameRef.current || 0);
+    }
+  }, [isReady, drawFrame]);
+
+  // Handle Resize & Orientation Changes across all devices (iPhones, Android, iPads)
+  useEffect(() => {
+    const handleResize = () => {
+      drawFrame(lastRenderedFrameRef.current);
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(handleResize, 150);
+    });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+    };
+  }, [drawFrame]);
+
+  // 4. Smooth Animation Loop with Lerp Physics
   useEffect(() => {
     let animId = null;
 
@@ -207,7 +262,7 @@ const FrameScrollIntro = ({ onComplete }) => {
       
       // Interpolate smoothly toward target progress
       if (Math.abs(diff) > 0.0001) {
-        currentProgressRef.current += diff * 0.14;
+        currentProgressRef.current += diff * 0.16;
         const frameIndex = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(currentProgressRef.current * (TOTAL_FRAMES - 1))));
 
         if (frameIndex !== lastRenderedFrameRef.current) {
@@ -237,79 +292,10 @@ const FrameScrollIntro = ({ onComplete }) => {
 
     animId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animId);
-  }, []);
+  }, [drawFrame]);
 
-  // 5. User Input Listeners (Wheel, Touch, Keys)
-  useEffect(() => {
-    // Wheel Listener: Scrub frames forward/backward while locked
-    const handleWheel = (e) => {
-      if (isMorphing) return;
-      e.preventDefault();
-
-      // If user has scrolled ALL 300 frames to the very end and scrolls down once more:
-      if (targetProgressRef.current >= 0.99 && e.deltaY > 20) {
-        triggerDockingMorph();
-        return;
-      }
-
-      // Increment progress
-      const delta = e.deltaY;
-      targetProgressRef.current = Math.min(1, Math.max(0, targetProgressRef.current + delta / SCROLL_SENSITIVITY));
-    };
-
-    // Touch Support for mobile devices
-    let touchStartY = 0;
-    const handleTouchStart = (e) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e) => {
-      if (isMorphing) return;
-      e.preventDefault();
-      const currentY = e.touches[0].clientY;
-      const deltaY = touchStartY - currentY;
-      touchStartY = currentY;
-
-      if (targetProgressRef.current >= 0.99 && deltaY > 25) {
-        triggerDockingMorph();
-        return;
-      }
-
-      targetProgressRef.current = Math.min(1, Math.max(0, targetProgressRef.current + (deltaY * 3.5) / SCROLL_SENSITIVITY));
-    };
-
-    // Keyboard navigation (ArrowDown / ArrowUp / Space)
-    const handleKeyDown = (e) => {
-      if (isMorphing) return;
-      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
-        e.preventDefault();
-        if (targetProgressRef.current >= 0.99) {
-          triggerDockingMorph();
-        } else {
-          targetProgressRef.current = Math.min(1, targetProgressRef.current + 0.05);
-        }
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault();
-        targetProgressRef.current = Math.max(0, targetProgressRef.current - 0.05);
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: false });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('resize', () => drawFrame(lastRenderedFrameRef.current));
-
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isMorphing]);
-
-  // 6. Ending Animation: Smooth Scale & Dock Morph into `.hero-carousel`
-  const triggerDockingMorph = () => {
+  // 5. Ending Animation: Smooth Scale & Dock Morph into `.hero-carousel`
+  const triggerDockingMorph = useCallback(() => {
     if (isMorphing) return;
     setIsMorphing(true);
 
@@ -330,14 +316,14 @@ const FrameScrollIntro = ({ onComplete }) => {
         left: `${rect.left}px`,
         width: `${rect.width}px`,
         height: `${rect.height}px`,
-        borderRadius: '8px',
+        borderRadius: '12px',
         boxShadow: '0 25px 70px rgba(0, 0, 0, 0.45)',
         transition: 'all 0.85s cubic-bezier(0.16, 1, 0.3, 1)',
         zIndex: 99998,
         overflow: 'hidden'
       });
     } else {
-      // Fallback scale-down if element not yet measured
+      // Fallback scale-down
       setMorphStyle({
         transform: 'scale(0.85) translateY(40px)',
         opacity: '0',
@@ -346,7 +332,7 @@ const FrameScrollIntro = ({ onComplete }) => {
       });
     }
 
-    // Complete the morph, release body scroll, and hand off to main website
+    // Complete morph, release body scroll, and hand off to main website
     setTimeout(() => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
@@ -354,6 +340,110 @@ const FrameScrollIntro = ({ onComplete }) => {
         onComplete();
       }
     }, 850);
+  }, [isMorphing, drawFrame, onComplete]);
+
+  // 6. User Input Listeners (Wheel, Touch, Keys)
+  useEffect(() => {
+    // Wheel Listener for Desktop trackpad & mouse
+    const handleWheel = (e) => {
+      if (isMorphing) return;
+      e.preventDefault();
+
+      if (targetProgressRef.current >= 0.99 && e.deltaY > 20) {
+        triggerDockingMorph();
+        return;
+      }
+
+      const delta = e.deltaY;
+      targetProgressRef.current = Math.min(1, Math.max(0, targetProgressRef.current + delta / DESKTOP_SENSITIVITY));
+    };
+
+    // Mobile Touch Gesture Support (Optimized for iPhones & Android)
+    let touchStartY = 0;
+    let touchStartX = 0;
+
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+      if (isMorphing) return;
+      if (e.cancelable) e.preventDefault();
+
+      const currentY = e.touches[0].clientY;
+      const currentX = e.touches[0].clientX;
+      const deltaY = touchStartY - currentY;
+      const deltaX = touchStartX - currentX;
+      touchStartY = currentY;
+      touchStartX = currentX;
+
+      // Handle swipe gestures
+      if (targetProgressRef.current >= 0.985 && deltaY > 15) {
+        triggerDockingMorph();
+        return;
+      }
+
+      const sensitivity = window.innerWidth < 768 ? MOBILE_SENSITIVITY : DESKTOP_SENSITIVITY;
+      const moveProgress = (deltaY * 2.8) / sensitivity;
+      targetProgressRef.current = Math.min(1, Math.max(0, targetProgressRef.current + moveProgress));
+    };
+
+    // Keyboard navigation
+    const handleKeyDown = (e) => {
+      if (isMorphing) return;
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        if (targetProgressRef.current >= 0.99) {
+          triggerDockingMorph();
+        } else {
+          targetProgressRef.current = Math.min(1, targetProgressRef.current + 0.05);
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        targetProgressRef.current = Math.max(0, targetProgressRef.current - 0.05);
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMorphing, triggerDockingMorph]);
+
+  // 7. Interactive Scrubber (User can touch or drag along the bottom progress bar)
+  const handleScrubberInteraction = (clientX) => {
+    const bar = scrubBarRef.current;
+    if (!bar) return;
+    const rect = bar.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    targetProgressRef.current = ratio;
+  };
+
+  const handleScrubberMouseDown = (e) => {
+    handleScrubberInteraction(e.clientX);
+    const onMouseMove = (moveEvent) => handleScrubberInteraction(moveEvent.clientX);
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  };
+
+  const handleScrubberTouchStart = (e) => {
+    handleScrubberInteraction(e.touches[0].clientX);
+  };
+
+  const handleScrubberTouchMove = (e) => {
+    handleScrubberInteraction(e.touches[0].clientX);
   };
 
   const handleSkip = () => {
@@ -365,12 +455,23 @@ const FrameScrollIntro = ({ onComplete }) => {
 
   return (
     <div className={`frame-scroll-viewport-lock ${isMorphing ? 'morph-active' : ''}`}>
-      {/* Locked Full-Screen Canvas Card */}
+      {/* Locked Full-Screen Canvas Card with dynamic viewport support */}
       <div className="frame-sticky-wrapper" style={morphStyle}>
         <canvas ref={canvasRef} className="frame-canvas" />
 
         {/* Ambient Vignette & Mesh Overlay */}
         <div className="frame-ambient-vignette" />
+
+        {/* Luxury Loading Spinner while critical frames are arriving */}
+        {!isReady && (
+          <div className="frame-intro-loader">
+            <div className="frame-loader-spinner" />
+            <span className="frame-loader-text">Loading Experience...</span>
+            <div className="frame-loader-bar">
+              <div className="frame-loader-fill" style={{ width: `${Math.min(100, loadedPercent * 6)}%` }} />
+            </div>
+          </div>
+        )}
 
         {/* HUD & Story Beats Overlay */}
         {!isMorphing && (
@@ -382,9 +483,13 @@ const FrameScrollIntro = ({ onComplete }) => {
                 <span className="frame-hud-dot" />
                 <span className="frame-hud-name">Vishwakarma Interior</span>
               </div>
-              <button className="frame-skip-btn" onClick={handleSkip}>
-                <span>Skip Intro</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <button 
+                className="frame-skip-btn" 
+                onClick={handleSkip}
+                aria-label="Skip Intro"
+              >
+                <span>Skip</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
@@ -409,16 +514,29 @@ const FrameScrollIntro = ({ onComplete }) => {
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </button>
-                  <span className="frame-end-hint">or scroll once more to enter</span>
+                  <span className="frame-end-hint">or tap / swipe to enter</span>
                 </div>
               )}
             </div>
 
             {/* Bottom HUD */}
             <div className="frame-hud-bottom">
+              {/* Interactive Scrub Meter */}
               <div className="frame-scrub-meter">
-                <div className="frame-scrub-bar">
+                <div 
+                  ref={scrubBarRef}
+                  className="frame-scrub-bar"
+                  onMouseDown={handleScrubberMouseDown}
+                  onTouchStart={handleScrubberTouchStart}
+                  onTouchMove={handleScrubberTouchMove}
+                  role="slider"
+                  aria-valuenow={progressPercent}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  tabIndex={0}
+                >
                   <div className="frame-scrub-fill" style={{ width: `${progressPercent}%` }} />
+                  <div className="frame-scrub-thumb" style={{ left: `${progressPercent}%` }} />
                 </div>
                 <div className="frame-scrub-label">
                   <span>FRAME {String(currentFrame + 1).padStart(3, '0')}</span>
@@ -427,12 +545,29 @@ const FrameScrollIntro = ({ onComplete }) => {
                 </div>
               </div>
 
-              <div className="frame-scroll-cue">
-                <div className="frame-mouse-icon">
-                  <div className="frame-mouse-wheel" />
-                </div>
+              {/* Responsive Scroll / Swipe Cue */}
+              <div 
+                className="frame-scroll-cue" 
+                onClick={allFramesScrolled ? triggerDockingMorph : undefined}
+                style={{ cursor: allFramesScrolled ? 'pointer' : 'default' }}
+              >
+                {!isTouchDevice ? (
+                  <div className="frame-mouse-icon">
+                    <div className="frame-mouse-wheel" />
+                  </div>
+                ) : (
+                  <div className="frame-swipe-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 19V5M5 12l7-7 7 7" />
+                    </svg>
+                  </div>
+                )}
                 <span>
-                  {allFramesScrolled ? 'Scroll to Enter Website ↓' : 'Scroll To Walkthrough'}
+                  {allFramesScrolled 
+                    ? 'Enter Website ↓' 
+                    : isTouchDevice 
+                      ? 'Swipe Up to Explore' 
+                      : 'Scroll to Walkthrough'}
                 </span>
               </div>
             </div>

@@ -392,3 +392,51 @@
 .dark-theme .estimate-note {
     color: #A0AAB2;
 }
+/* Mobile & Device Responsiveness for Estimate Modal */
+@media (max-width: 768px) {
+    .estimate-modal {
+        width: 92%;
+        max-height: 88vh;
+        max-height: 88dvh;
+        margin: 16px auto;
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        padding: 24px 20px 16px;
+    }
+
+    .modal-header h2 {
+        font-size: 22px;
+    }
+
+    .modal-header p {
+        font-size: 13px;
+    }
+
+    .modal-logo-wrap {
+        width: 46px;
+        height: 30px;
+        margin-bottom: 12px;
+    }
+
+    .estimate-form {
+        padding: 20px 18px 28px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .estimate-button-vertical {
+        right: 0;
+        padding: 12px 6px;
+        border-radius: 12px 0 0 12px;
+    }
+
+    .estimate-btn-text {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+}
