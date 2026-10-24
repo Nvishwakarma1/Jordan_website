@@ -1,0 +1,412 @@
+================================================================================
+PROJECT DESCRIPTION & COMPREHENSIVE ARCHITECTURAL CONTEXT
+================================================================================
+Document: ProjectDiscription
+Project Name: Rishikesh Interior Solutions (Jordan_website)
+Brand / Studio: Rishikesh Interior Solutions (Vishwakarma Interior Atelier)
+Lead Designer / Owner: Rishikesh Vishwakarma
+Repository URL: https://github.com/Nvishwakarma1/Jordan_website.git
+Primary Branch: main
+Target Framework: React 18.3.1 with Vite 5.3.1
+Date of Analysis: October 2026
+================================================================================
+
+1. EXECUTIVE OVERVIEW
+--------------------------------------------------------------------------------
+This project is a high-end, luxury interior architecture and interior design 
+portfolio web application. It combines cutting-edge interactive scrollytelling 
+with a responsive commercial studio showcase.
+
+Key Highlights:
+- 300-Frame Interactive Canvas Intro: An Apple-style scrollytelling intro sequence 
+  rendered on an HTML5 high-DPI canvas that scrubs frame-by-frame as the user scrolls, 
+  with dynamic editorial story beats and an ambient HUD.
+- Seamless Docking Morph Transition: Once all 300 frames are completed (or skipped), 
+  the full-screen intro canvas physically scales and docks directly into the CAD 
+  architectural carousel of the Hero section below.
+- Dual-Mode Adaptive Navbar: Floats as a top horizontal luxury pill when at the page top, 
+  and automatically transforms into a left-aligned vertical floating icon dock once 
+  scrolled past 70% of the viewport height.
+- Three-Tier Depth Dark/Light Theme Engine: Full support for both luxury warm ivory 
+  light mode and a three-tier depth dark mode (base background, alternating section 
+  tier, and elevated cards/modals surface tier with terracotta and brass accents).
+- Interactive Cost Estimator: A slide-up consultation modal calculating real-time 
+  interior renovation and architectural budgets based on category, finish tier, 
+  square footage, and project scope percentage.
+- Bespoke Brand Identity: Powered by the custom golden architectural monogram logo 
+  (Bhaiya.svg and Bhaiya.png), integrated across the navbar, HUD, stamps, seals, 
+  portfolio cards, estimate headers, and browser favicon.
+
+================================================================================
+2. TECHNOLOGY STACK & CORE DEPENDENCIES
+================================================================================
+Core Platform:
+- Runtime: Node.js (v18+)
+- Language: Modern JavaScript (ES Modules, JSX, ES2022)
+- Framework: React 18.3.1 / React DOM 18.3.1
+- Bundler / Dev Server: Vite 5.3.1 with @vitejs/plugin-react 4.3.1
+
+Libraries & Tooling:
+- React Icons: 5.5.0 (FiHome, FiSettings, FiBriefcase, FiUser, FiMail, FiSun, FiMoon)
+- Framer Motion: 12.40.0
+- PostCSS: 8.5.15 with Autoprefixer 10.5.0 and @tailwindcss/postcss 4.3.0
+- Styling Approach: Vanilla CSS design tokens with custom CSS properties, scoped 
+  modular component stylesheets, and semantic HTML5 hierarchy.
+
+================================================================================
+3. DIRECTORY STRUCTURE & FILE INVENTORY
+================================================================================
+Interior WEb/
+│
+├── .gitignore                      # Git exclusion rules (node_modules, dist, backups, local archive)
+├── README.md                       # Repository overview and setup documentation
+├── index.html                      # Root HTML entry point, typography imports, and favicons
+├── package.json                    # Dependencies, scripts, and build metadata
+├── package-lock.json               # Locked dependency tree
+├── vite.config.js                  # Vite configuration with React plugin
+├── Bhaiya.svg                      # Master vector brand logo (warm luxury brass gold #C4945B)
+├── Bhaiya.png                      # High-resolution rasterized brand logo with transparent alpha
+├── favicon.png                     # Legacy favicon asset
+├── heroimage.jpg                   # High-res portrait of designer Rishikesh Vishwakarma
+│
+├── public/                         # Static assets served at root /
+│   ├── Bhaiya.svg                  # Vector favicon & direct browser icon
+│   ├── Bhaiya.png                  # Raster favicon & Apple touch icon
+│   └── heroframes/                 # 300 sequential animation frames
+│       ├── ezgif-frame-001.jpg
+│       ├── ...
+│       └── ezgif-frame-300.jpg     # Final static frame of hero room sequence
+│
+├── heroframes/                     # Root copy of 300 frames for local Vite dev server
+│   ├── ezgif-frame-001.jpg
+│   └── ...
+│
+├── src/                            # Application Source Code
+│   ├── main.jsx                    # React entry file rendering <App /> to #root
+│   ├── index.css                   # Global design tokens, CSS variables, dark theme, typography
+│   ├── App.jsx                     # Root component managing intro vs main website lifecycle
+│   ├── App.css                     # Global layout wrapper and section padding styles
+│   │
+│   ├── assets/                     # Packaged static assets imported in components
+│   │   ├── Bhaiya.svg              # Scalable vector logo for React component imports
+│   │   ├── Bhaiya.png              # Raster logo for React component imports
+│   │   └── living-room-bg.png      # High-res interior background image
+│   │
+│   └── components/                 # UI Feature Components
+│       ├── FrameScrollIntro.jsx    # 300-frame canvas scrollytelling intro & docking morph
+│       ├── FrameScrollIntro.css    # HUD, story beats, canvas, and morph animation styles
+│       ├── frameColors.json        # Precomputed hex dominant colors for each frame
+│       ├── Navbar.jsx              # Dual-state (horizontal / vertical dock) navigation bar
+│       ├── Navbar.css              # Navbar morph, glowing logo lockup, and icon dock styles
+│       ├── HeroSection.jsx         # Hero banner, CAD blueprint markers, and image carousel
+│       ├── HeroSection.css         # Split grid layout, dimension lines, and carousel styles
+│       ├── Services.jsx            # 4 core studio services showcase
+│       ├── Services.css            # Service card grid and hover micro-interactions
+│       ├── Portfolio.jsx           # Filterable gallery of residential and commercial works
+│       ├── Portfolio.css           # Project grid, image gradients, and insignia hover overlays
+│       ├── About.jsx               # Designer bio, statistics, and portrait with certified seal
+│       ├── About.css               # Two-column layout, stats counter, and seal badge styles
+│       ├── CustomerReview.jsx      # Testimonials carousel with star ratings and reviewer info
+│       ├── CustomerReview.css      # Testimonial cards with staggered animation delays
+│       ├── Contact.jsx             # Studio contact form, direct contact info, and luxury footer
+│       ├── Contact.css             # Form inputs, contact cards, and footer brand lockup
+│       ├── ThemeToggle.jsx         # Fixed floating button for light/dark mode with localStorage
+│       ├── ThemeToggle.css         # Theme toggle button styling and rotation effects
+│       ├── EstimateCalculator.jsx  # Floating trigger button and real-time cost calculation modal
+│       ├── EstimateCalculator.css  # Modal overlay, form controls, and pricing summary card
+│       ├── YouTubeButton.jsx       # Floating round CTA linking to YouTube channel
+│       └── YouTubeButton.css       # YouTube button styling with hover scale and ripple
+│
+└── _local_archive/                 # Kept locally only (strictly excluded from Git repository)
+    ├── backups/                    # Local development snapshot folders (backup12, backupfinal, etc.)
+    ├── unused_components/          # Redundant components / obsolete frames
+    └── unused_files/               # Archived prototypes (frame-scroll.html, script.js, style.css)
+
+================================================================================
+4. APPLICATION ARCHITECTURE & LIFECYCLE
+================================================================================
+
+Step 1: Mount & Scroll Initialization (src/App.jsx)
+- On first mount, the application sets 'scrollRestoration' to 'manual' in the browser 
+  history and scrolls to (0, 0).
+- The state variable 'introCompleted' defaults to false.
+- When 'introCompleted' is false:
+  - <FrameScrollIntro /> is rendered as an interactive overlay on top of the DOM.
+  - The main website container (.main-website-wrapper) has class .intro-overlay-active.
+
+Step 2: Scrollytelling Sequence (src/components/FrameScrollIntro.jsx)
+- Locks body and html scroll (overflow: hidden).
+- Preloads all 300 sequential JPEG frames from /heroframes/ezgif-frame-XXX.jpg into memory.
+- Listens to 'wheel', 'touchmove', and keyboard arrow events. Scroll delta increments 
+  'targetProgressRef' smoothly.
+- A requestAnimationFrame loop applies linear interpolation (lerp) between 'currentProgress' 
+  and 'targetProgress', ensuring butter-smooth playback even on slow or rapid mouse wheels.
+- A High-DPI canvas (<canvas ref={canvasRef} />) scales its width/height to window.devicePixelRatio 
+  and paints the active frame centered with high quality.
+- 4 Narrative Story Beats transition sequentially:
+  * Beat 1 (Frames 0-75): "01 / SPATIAL HARMONY" - Vishwakarma Interior
+  * Beat 2 (Frames 76-155): "02 / ARCHITECTURAL RIGOR" - Built For Precision
+  * Beat 3 (Frames 156-235): "03 / TACTILE LUXURY" - Crafted Millwork
+  * Beat 4 (Frames 236-300): "04 / THE SANCTUARY" - Elevate Your Lifestyle
+- Ambient HUD displays the brand logo (Bhaiya.svg), live status dot, scrub bar, progress 
+  percentage, and a "Skip Intro" button.
+
+Step 3: The Docking Morph Transition
+- When the user reaches frame 300 and scrolls once more (or clicks "Skip Intro" / "Enter Interior Website"):
+  1. The function triggerDockingMorph() fires.
+  2. The intro measures the exact DOM bounding rectangle of '.hero-carousel-container' on the page.
+  3. The full-screen canvas smoothly animates its top, left, width, height, and border-radius 
+     using a cubic-bezier(0.16, 1, 0.3, 1) transition (850ms), docking directly into the hero carousel frame.
+  4. Body overflow lock is released.
+  5. onComplete() is called, unmounting the intro canvas and unveiling the fully active studio website.
+
+================================================================================
+5. DETAILED COMPONENT FUNCTIONAL SPECIFICATIONS
+================================================================================
+
+1. App.jsx (Root Component)
+   - Coordinates intro sequence vs main website presentation.
+   - Manages scroll reset on refresh.
+   - Hosts all main website sections: Navbar, ThemeToggle, EstimateCalculator, 
+     YouTubeButton, HeroSection, Services, Portfolio, About, CustomerReview, Contact.
+
+2. Navbar.jsx & Navbar.css (Adaptive Navigation System)
+   - Dual-Mode Geometry:
+     * Horizontal Top Pill (window.scrollY <= 70vh):
+       - Positioned fixed top: 20px, left: 35px.
+       - Contains glowing Bhaiya.svg logo mark, "RISHIKESH" (Cinzel serif, 15px), 
+         and "INTERIOR SOLUTIONS" (8px tracked uppercase).
+       - Horizontal text links: Home, Services, Portfolio, About, Contact.
+       - Gold line underline expand animation on hover.
+     * Vertical Left Dock (window.scrollY > 70vh):
+       - Positioned fixed top: 50%, left: 0, transform: translateY(-50%).
+       - Border-radius: 0 30px 30px 0.
+       - Contains a borderless, compact floating golden logo emblem at the top.
+       - Vertical stack of icon buttons (FiHome, FiSettings, FiBriefcase, FiUser, FiMail) 
+         with circular hover background and tooltips.
+   - Smooth section scrolling: element.scrollIntoView({ behavior: 'smooth' }).
+
+3. HeroSection.jsx & HeroSection.css (Hero Architectural Viewport)
+   - Left Column (Hero Text):
+     - Subtitle badge: "Interior Design Excellence".
+     - Grand Heading: "Transforming Spaces Into Art" (with .highlight on Art).
+     - Narrative studio description.
+     - CTA buttons: "View Portfolio" (scrolls to #portfolio) and "Get In Touch" (scrolls to #contact).
+   - Right Column (Hero Carousel & CAD Markers):
+     - Integrated carousel displaying high-resolution interior photography.
+     - Automatic 4-second cross-fade interval.
+     - CAD Technical Overlays:
+       * Horizontal dimension line: 600 MM with arrow markers.
+       * Vertical dimension line: 450 MM with rotated text label.
+       * Corner L-brackets in primary color.
+       * CAD Blueprint Stamp: "VISHWAKARMA INTERIOR • ARCHITECTURAL SCHEMATICS • REV 04".
+
+4. Services.jsx & Services.css (Core Service Offerings)
+   - 4 Specialized Service Offerings:
+     1. Residential Design ("Complete home interior design services from concept to completion...")
+     2. Commercial Spaces ("Professional office and retail design that enhances productivity...")
+     3. Space Planning ("Optimize your space layout for maximum functionality...")
+     4. Consultations ("Expert design advice and guidance for your interior design projects...")
+   - Responsive cards with icon badges, elevated hover transforms, and theme-aware borders.
+
+5. Portfolio.jsx & Portfolio.css (Curated Architectural Gallery)
+   - Interactive filtering system: 'all', 'residential', 'commercial'.
+   - 6 Curated Showcase Projects:
+     1. Modern Living Room (residential)
+     2. Minimalist Kitchen (residential)
+     3. Corporate Office (commercial)
+     4. Boutique Retail (commercial)
+     5. Master Bedroom (residential)
+     6. Restaurant Interior (commercial)
+   - Dynamic CSS gradient background placeholders mimicking architectural renders.
+   - Hover Overlay:
+     * Golden Insignia Stamp: Bhaiya.svg watermark in top-right corner.
+     * Category badge, project title, and "View Project ->" button with pill border.
+
+6. About.jsx & About.css (Studio Profile & Master Designer Bio)
+   - Focuses on Lead Designer: Rishikesh Vishwakarma.
+   - Narrative on 20+ years of bespoke craftsmanship and personalized residential/commercial design.
+   - Live Statistics Counters:
+     * 150+ Projects Completed
+     * 21+ Years Experience
+     * 98% Client Satisfaction
+   - Designer Portrait Card:
+     * High-resolution image (/heroimage.jpg).
+     * Embossed Certified Interior Watermark Seal: Gold-trimmed badge with Bhaiya.png, 
+       reading "CERTIFIED INTERIOR • EST. 2005 • MASTER CRAFT".
+     * Signature caption: "Rishikesh Vishwakarma • Lead Designer".
+
+7. CustomerReview.jsx & CustomerReview.css (Social Proof & Testimonials)
+   - 6 Verified Client Reviews:
+     - Sarah Johnson (5 Stars): Modern masterpiece living room.
+     - Michael Chen (5 Stars): Professional, creative, and efficient vision.
+     - Emily Rodriguez (5 Stars): Luxurious and personalized home.
+     - David Thompson (5 Stars): Quality craftsmanship and innovative designs.
+     - Priya Sharma (5 Stars): Elevated elegant and comfortable aesthetic.
+     - James Wilson (5 Stars): Balance between aesthetics and functionality.
+   - Card features gold star rating row, quote body, and circular reviewer avatar initial.
+
+8. Contact.jsx & Contact.css (Inquiry Terminal & Luxury Footer)
+   - Contact Form:
+     * Fields: Full Name, Email Address, Project Message.
+     * Controlled state with alert feedback and automatic form reset.
+   - Direct Contact Info Cards:
+     * Phone: +91 98765 43210 (with FiPhone icon).
+     * Email: info@rishiinterior.com (with FiMail icon).
+     * Studio Location: Mumbai, Maharashtra, India (with FiMapPin icon).
+   - Luxury Footer:
+     * Footer Brand Lockup: Glowing Bhaiya.svg vector logo next to "RISHIKESH INTERIOR SOLUTIONS".
+     * Studio Tagline: "Architectural Interior Design • Crafting Timeless Sanctuaries".
+     * Service and Navigation columns.
+     * Social Media Links: Instagram (@rishikesh_furniture), Facebook, Twitter/X, LinkedIn, Pinterest.
+     * Copyright and Legal meta links.
+
+9. ThemeToggle.jsx & ThemeToggle.css (Dynamic Theme Engine)
+   - Fixed circular floating trigger at top right (top: 20px, right: 35px).
+   - Synchronizes with localStorage key 'theme'.
+   - Toggles .dark-theme class on document.documentElement.
+   - Rotates icons: Displays FiSun in dark mode (to switch to light) and FiMoon in light mode.
+
+10. EstimateCalculator.jsx & EstimateCalculator.css (Interactive Cost Calculator)
+    - Vertical floating trigger tab fixed on the right screen edge ("GET ESTIMATES").
+    - Slide-up glassmorphic modal with backdrop blur.
+    - Modal Header: Centered golden Bhaiya.svg logo with glowing aura and title 
+      "Project Cost Estimator • Bespoke Consultation".
+    - Calculation Formula:
+      * Base Pricing Matrix:
+        - Residential: Luxury (Rs. 2500/sqft), Modern (Rs. 1800/sqft), Minimalistic (Rs. 1200/sqft)
+        - Commercial: Luxury (Rs. 3500/sqft), Modern (Rs. 2500/sqft), Minimalistic (Rs. 1800/sqft)
+      * Formula: Total = BasePrice[category][workType] * SquareFeet * (Percentage / 100)
+    - Live formatted estimate output card displayed upon calculation with consultation CTA.
+
+11. YouTubeButton.jsx & YouTubeButton.css
+    - Fixed floating circular button on bottom right with official YouTube SVG play logo.
+    - Triggers external link to studio video walkthroughs and room tours.
+
+================================================================================
+6. DESIGN SYSTEM, COLOR PALETTE & TYPOGRAPHY
+================================================================================
+
+Light Mode Palette:
+- --bg-color: #FDFBF7 (Warm Alabaster / Ivory)
+- --bg-secondary: #F5F1E8 (Light Oat Linen)
+- --surface-color: #FFFFFF (Pure White)
+- --primary-color: #2C5F5D (Deep Architectural Teal)
+- --accent-gold: #C9A961 (Luxury Antique Brass / Gold)
+- --text-primary: #333333 (Charcoal Noir)
+- --text-secondary: #666666 (Muted Slate)
+- --border-color: #E8DCC4 (Warm Muted Sandstone)
+
+Three-Tier Dark Mode Palette:
+- Tier 1 (Global Canvas): --bg-color: #151419 (Obsidian Night)
+- Tier 2 (Alternating Sections): --bg-secondary: #1E1D24 (Deep Basalt)
+- Tier 3 (Elevated Surfaces & Cards): --surface-color: #2A2831 (Graphite Elevation)
+- Borders & Dividers: --border-color: #383542 (Subtle Slate Line)
+- Primary Accent: --primary-color: #C85A32 (Rich Venetian Terracotta)
+- Secondary Accent: --accent-gold: #C4945B / #E2A765 (Radiant Gold)
+- Text Primary: --text-primary: #E8E8E8 (High-contrast Off-White)
+- Text Secondary: --text-secondary: #A0AAB2 (Subtle Steel Blue-Grey)
+
+Typography Hierarchy:
+- Headings & Editorial Titles: 'Playfair Display', Georgia, serif
+- Brand Lockups & Emblem Titles: 'Cinzel', 'Playfair Display', serif
+- Body Copy, UI Controls & Labels: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif
+- Script Elements: 'Parisienne', cursive
+
+================================================================================
+7. BRAND ASSETS SPECIFICATION
+================================================================================
+
+1. Bhaiya.svg:
+   - Format: Scalable Vector Graphics (XML)
+   - ViewBox: 0 0 1151.56 658.69 (~1.75:1 aspect ratio)
+   - Fill: #C4945B (Warm architectural satin gold)
+   - Design: Stylized geometric monogram combining the letter 'R' with architectural 
+     structural lines, roof peaks, and multi-pane atelier windows.
+   - Uses: Primary horizontal navbar logo, vertical floating dock icon, 3D intro HUD, 
+     estimate calculator modal header, portfolio card hover insignia, footer brand mark, 
+     and browser tab favicon.
+
+2. Bhaiya.png:
+   - Format: Portable Network Graphics (PNG with 32-bit alpha transparency)
+   - Dimensions: 441 x 252 pixels
+   - Uses: Certified Interior watermark seal badge on About portrait card, CAD blueprint 
+     watermarks, and Apple touch icon.
+
+3. 300 Scrollytelling Frames (public/heroframes/):
+   - Sequence: ezgif-frame-001.jpg through ezgif-frame-300.jpg
+   - Total Size: ~47 MB (average ~150 KB per frame)
+   - Dimensions: 1920x1080 high-definition interior renders
+   - Subject: Smooth rotational 3D camera pan revealing an architectural master suite, 
+     custom millwork cabinetry, expansive floor-to-ceiling windows, and luxury living room.
+
+================================================================================
+8. REPOSITORY HYGIENE & LOCAL ARCHIVE ARCHITECTURE
+================================================================================
+
+Git Repository (GitHub):
+- Remote: https://github.com/Nvishwakarma1/Jordan_website.git
+- Branch: main
+- Excludes: node_modules/, dist/, .vscode/, backups, and local scratch files.
+
+Local Archive System (_local_archive/):
+- Stored exclusively on the local machine and explicitly ignored in .gitignore.
+- Structure:
+  * _local_archive/backups/ (Contains 7 snapshot folders: backup-test1, backup12, 
+    backup23, backup34, backup45, backupfinal, backupfinal1)
+  * _local_archive/unused_components/ (Contains duplicate 15MB frames 30fps folder)
+  * _local_archive/unused_files/ (Contains frame-scroll.html, index.html.backup, 
+    profile.jpeg, script.js, style.css, ChatGPT Image...png)
+
+================================================================================
+9. RUNBOOK & COMMON COMMANDS
+================================================================================
+
+Install Dependencies:
+  npm install
+
+Start Local Development Server:
+  npm run dev
+  (Runs on http://localhost:5173 by default)
+
+Build for Production:
+  npm run build
+  (Outputs optimized bundles and static assets to dist/)
+
+Preview Production Build:
+  npm run preview
+  (Serves the dist/ directory locally to test production performance)
+
+Git Workflow:
+  git status
+  git add .
+  git commit -m "<descriptive message>"
+  git push origin main
+
+================================================================================
+10. AI QUICK-CONTEXT & CODE EXTENSION GUIDANCE
+================================================================================
+When prompting an AI assistant or extending this project in future tasks, keep the 
+following guidelines in mind:
+
+1. Asset References:
+   - Always refer to static public files using root absolute paths (e.g., '/heroframes/...', 
+     '/Bhaiya.svg', '/heroimage.jpg') or import them from 'src/assets/'.
+2. Brand Consistency:
+   - Use "Vishwakarma Interior" or "Rishikesh Interior Solutions" for all public-facing 
+     titles and branding. Do not use "Atelier" unless specifically requested.
+3. CSS Design Tokens:
+   - Never use arbitrary hardcoded colors for themed surfaces. Always use CSS custom 
+     properties: var(--bg-color), var(--surface-color), var(--primary-color), 
+     var(--accent-gold), var(--text-primary), var(--text-secondary), var(--border-color).
+4. Dual Navbar Awareness:
+   - Navbar styles in Navbar.css are split between .navbar-horizontal and .navbar-vertical. 
+     Modifications to navbar items must account for both horizontal desktop layout and 
+     vertical floating left dock layout.
+5. Intro Scrollytelling Protection:
+   - FrameScrollIntro.jsx manages body scroll locking and high-DPI canvas drawing. 
+     Any changes to total frames must update TOTAL_FRAMES constant (currently 300) 
+     and the frame URL generator.
+================================================================================
+END OF PROJECT DESCRIPTION
+================================================================================

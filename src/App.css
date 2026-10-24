@@ -8,11 +8,11 @@
 .main-website-wrapper {
     position: relative;
     width: 100%;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .main-website-wrapper.intro-overlay-active {
-    opacity: 0.95;
+    opacity: 0.97;
 }
 
 .main-website-wrapper.intro-revealed {
@@ -37,6 +37,13 @@ section {
     margin-right: auto;
 }
 
+.section-header {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 64px;
+}
+
 @media (max-width: 768px) {
     section {
         padding: 80px 6%;
@@ -45,6 +52,6 @@ section {
 
 @media (max-width: 480px) {
     section {
-        padding: 60px 5%;
+        padding: 64px 5%;
     }
 }

@@ -38,20 +38,26 @@ const Contact = () => {
                 <div className="contact-info">
                     <div className="info-item">
                         <div className="info-icon"><FiMail /></div>
-                        <h3>Email</h3>
-                        <p>m1bid23rushikeshviswakarma@cindrebay.com</p>
+                        <div className="info-item-body">
+                            <h3>Email</h3>
+                            <p>m1bid23rushikeshviswakarma@cindrebay.com</p>
+                        </div>
                     </div>
                     <div className="info-item">
                         <div className="info-icon"><FiPhone /></div>
-                        <h3>Phone</h3>
-                        <p>+91 93227 54545</p>
+                        <div className="info-item-body">
+                            <h3>Phone</h3>
+                            <p>+91 93227 54545</p>
+                        </div>
                     </div>
                     <div className="info-item">
                         <div className="info-icon"><FiMapPin /></div>
-                        <h3>Get Location</h3>
-                        <a href="https://maps.app.goo.gl/mT8Ep9ckeHTgq39b9" target="_blank" rel="noopener noreferrer">
-                            <p>Nagpur, India</p>
-                        </a>
+                        <div className="info-item-body">
+                            <h3>Get Location</h3>
+                            <a href="https://maps.app.goo.gl/mT8Ep9ckeHTgq39b9" target="_blank" rel="noopener noreferrer">
+                                <p>Nagpur, India</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
