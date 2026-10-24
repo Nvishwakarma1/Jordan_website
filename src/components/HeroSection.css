@@ -19,10 +19,21 @@
     gap: 24px;
 }
 
+.hero-brand-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 18px;
+    background: rgba(196, 148, 91, 0.08);
+    border: 1px solid rgba(196, 148, 91, 0.25);
+    border-radius: 100px;
+    width: fit-content;
+    backdrop-filter: blur(8px);
+}
+
 .hero-subtitle {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 3px;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--accent-gold);
 }
@@ -222,6 +233,53 @@
     right: -10px;
     border-left: none;
     border-top: none;
+}
+
+/* CAD Blueprint Stamp */
+.cad-blueprint-stamp {
+    position: absolute;
+    bottom: -22px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(20, 22, 28, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(196, 148, 91, 0.4);
+    padding: 6px 14px;
+    border-radius: 6px;
+    pointer-events: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+.cad-blueprint-stamp:hover {
+    transform: translateY(-2px);
+    border-color: rgba(196, 148, 91, 0.75);
+    box-shadow: 0 12px 30px rgba(196, 148, 91, 0.25);
+}
+
+.cad-stamp-labels {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.cad-stamp-title {
+    font-family: 'Cinzel', serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--accent-gold);
+}
+
+.cad-stamp-sub {
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    margin-top: 2px;
 }
 
 /* Carousel */

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FiHome, FiSettings, FiBriefcase, FiUser, FiMail } from 'react-icons/fi';
+import logoSvg from '../assets/Bhaiya.svg'
 import './Navbar.css'
 
 const Navbar = () => {
@@ -33,7 +34,24 @@ const Navbar = () => {
     return (
         <nav className={`navbar ${isScrolled ? 'navbar-vertical' : 'navbar-horizontal'}`}>
             <div className="nav-container">
-                <div className="nav-logo">{isScrolled ? 'N' : 'NAAAA INTERIOR'}</div>
+                <div 
+                    className={`nav-logo ${isScrolled ? 'nav-logo-compact' : ''}`}
+                    onClick={() => scrollToSection('home')}
+                    title="Rishikesh Interior Solutions"
+                    role="button"
+                    tabIndex={0}
+                >
+                    <div className="nav-logo-mark-wrap">
+                        <img src={logoSvg} alt="Rishikesh Interior" className="nav-logo-svg" />
+                        <span className="nav-logo-glow" />
+                    </div>
+                    {!isScrolled && (
+                        <div className="nav-logo-text-group">
+                            <span className="nav-logo-title">RISHIKESH</span>
+                            <span className="nav-logo-subtitle">INTERIOR SOLUTIONS</span>
+                        </div>
+                    )}
+                </div>
                 <div className="nav-links">
                     {navItems.map((item) => (
                         <button

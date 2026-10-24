@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logoSvg from '../assets/Bhaiya.svg'
 import './Portfolio.css'
 
 const Portfolio = () => {
@@ -56,6 +57,9 @@ const Portfolio = () => {
                                 {project.title}
                             </div>
                             <div className="portfolio-hover-overlay">
+                                <div className="portfolio-card-insignia">
+                                    <img src={logoSvg} alt="Interior Insignia" className="portfolio-insignia-svg" />
+                                </div>
                                 <span className="overlay-category">{project.category}</span>
                                 <h4 className="overlay-title">{project.title}</h4>
                                 <span className="overlay-btn">View Project &rarr;</span>

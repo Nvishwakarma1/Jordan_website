@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FiPhone, FiMail, FiMapPin} from 'react-icons/fi';
+import logoSvg from '../assets/Bhaiya.svg'
 import './Contact.css'
 
 const Contact = () => {
@@ -98,8 +99,17 @@ const Contact = () => {
             <footer className="footer">
                 <div className="footer-content">
                     <div className="footer-brand">
-                        <h3 className="footer-logo">RISHI INTERIOR</h3>
-                        <p className="footer-tagline">Interior Design Excellence</p>
+                        <div className="footer-brand-lockup">
+                            <div className="footer-logo-wrap">
+                                <img src={logoSvg} alt="Rishikesh Interior Solutions Logo" className="footer-logo-img" />
+                                <span className="footer-logo-glow" />
+                            </div>
+                            <div className="footer-brand-text">
+                                <h3 className="footer-logo">RISHIKESH</h3>
+                                <span className="footer-brand-subtitle">INTERIOR SOLUTIONS</span>
+                            </div>
+                        </div>
+                        <p className="footer-tagline">Architectural Interior Design • Crafting Timeless Sanctuaries</p>
                     </div>
 
                     <div className="footer-links">

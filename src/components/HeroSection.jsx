@@ -34,7 +34,9 @@ const HeroSection = () => {
         <section id="home" className="hero-section">
             <div className="hero-content">
                 <div className="hero-text">
-                    <span className="hero-subtitle">Interior Design Excellence</span>
+                    <div className="hero-brand-badge">
+                        <span className="hero-subtitle">Interior Design Excellence</span>
+                    </div>
                     <h1 className="hero-title">
                         Transforming<br />
                         Spaces Into<br />
@@ -71,6 +73,14 @@ const HeroSection = () => {
                         <div className="corner-marker top-right"></div>
                         <div className="corner-marker bottom-left"></div>
                         <div className="corner-marker bottom-right"></div>
+                        
+                        {/* Architectural interior watermark stamp */}
+                        <div className="cad-blueprint-stamp">
+                            <div className="cad-stamp-labels">
+                                <span className="cad-stamp-title">VISHWAKARMA INTERIOR</span>
+                                <span className="cad-stamp-sub">ARCHITECTURAL SCHEMATICS • REV 04</span>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Image Carousel */}

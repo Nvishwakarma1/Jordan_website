@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logoSvg from '../assets/Bhaiya.svg'
 import './EstimateCalculator.css'
 
 const EstimateCalculator = () => {
@@ -52,8 +53,12 @@ const EstimateCalculator = () => {
                         <button className="modal-close" onClick={() => setIsOpen(false)}>✕</button>
 
                         <div className="modal-header">
-                            <h2>Get Your Estimate</h2>
-                            <p>Calculate the cost for your interior design project</p>
+                            <div className="modal-logo-wrap">
+                                <img src={logoSvg} alt="Rishikesh Interior Logo" className="modal-header-logo" />
+                                <span className="modal-logo-glow" />
+                            </div>
+                            <h2>Project Cost Estimator</h2>
+                            <p>Bespoke Consultation • Calculate investment for your space</p>
                         </div>
 
                         <form className="estimate-form" onSubmit={calculateEstimate}>

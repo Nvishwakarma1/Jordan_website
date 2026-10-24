@@ -31,10 +31,12 @@ Thumbs.db
 *.sln
 *.sw?
 
-# Backups (kept locally, not pushed to repo)
+# Backups and local archives (kept locally, not pushed to repo)
 backup*/
 *backup*
 *.backup
+_local_archive/
+_archive/
 
 # Scratch / temporary files
 ChatGPT Image*

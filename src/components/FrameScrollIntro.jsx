@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import logoSvg from '../assets/Bhaiya.svg';
 import './FrameScrollIntro.css';
 
 const TOTAL_FRAMES = 300;
@@ -377,8 +378,9 @@ const FrameScrollIntro = ({ onComplete }) => {
             {/* Top HUD */}
             <div className="frame-hud-top">
               <div className="frame-hud-brand">
+                <img src={logoSvg} alt="Vishwakarma Interior Logo" className="frame-hud-logo" />
                 <span className="frame-hud-dot" />
-                <span className="frame-hud-name">Vishwakarma Atelier</span>
+                <span className="frame-hud-name">Vishwakarma Interior</span>
               </div>
               <button className="frame-skip-btn" onClick={handleSkip}>
                 <span>Skip Intro</span>
@@ -397,8 +399,12 @@ const FrameScrollIntro = ({ onComplete }) => {
               {/* Special action cue when all 300 frames have been scrolled */}
               {allFramesScrolled && (
                 <div className="frame-end-cue" onClick={triggerDockingMorph}>
+                  <div className="frame-end-emblem-wrap">
+                    <img src={logoSvg} alt="Vishwakarma Interior" className="frame-end-emblem" />
+                    <span className="frame-end-emblem-glow" />
+                  </div>
                   <button className="frame-enter-website-btn">
-                    <span>Enter Atelier Website</span>
+                    <span>Enter Interior Website</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>

@@ -1,6 +1,6 @@
 # Luxury Interior Architecture & Design Studio
 
-A luxury interior design and architectural atelier web application featuring an interactive 3D frame-scroll canvas sequence, project showcases, cost estimator, customer reviews, and a responsive modern interface.
+A luxury interior design and architectural studio web application featuring an interactive 3D frame-scroll canvas sequence, project showcases, cost estimator, customer reviews, and a responsive modern interface.
 
 ## Tech Stack
 

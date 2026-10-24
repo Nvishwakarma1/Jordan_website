@@ -1,3 +1,4 @@
+import logoPng from '../assets/Bhaiya.png'
 import './About.css'
 
 const About = () => {
@@ -34,7 +35,16 @@ const About = () => {
                 </div>
                 <div className="about-image">
                     <img src="/heroimage.jpg" alt="Rishikesh Vishwakarma - Designer at Work" />
-                    <div className="image-caption">Designer at Work</div>
+                    <div className="about-seal-badge">
+                        <div className="about-seal-icon-wrap">
+                            <img src={logoPng} alt="Interior Seal" className="about-seal-logo" />
+                        </div>
+                        <div className="about-seal-text">
+                            <span className="about-seal-badge-title">CERTIFIED INTERIOR</span>
+                            <span className="about-seal-badge-sub">EST. 2005 • MASTER CRAFT</span>
+                        </div>
+                    </div>
+                    <div className="image-caption">Rishikesh Vishwakarma • Lead Designer</div>
                 </div>
             </div>
         </section>
