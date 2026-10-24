@@ -1,0 +1,135 @@
+.services-section {
+    background: var(--bg-color);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 10px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.section-title {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 24px 0;
+    letter-spacing: -1px;
+}
+
+.section-description {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: transparent;
+    padding: 0;
+    border: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+}
+
+.service-icon {
+    font-size: 64px;
+    margin-bottom: 32px;
+    filter: grayscale(20%);
+}
+
+.service-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.service-description {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 42px;
+    }
+
+    .section-header {
+        margin-bottom: 60px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .service-card {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 36px;
+    }
+
+    .service-icon {
+        font-size: 56px;
+        margin-bottom: 24px;
+    }
+}
+
+/* Dark Theme Specific Services Styling (Three-Tier Depth Hierarchy) */
+.dark-theme .services-section {
+    background-color: #151419; /* Tier 1: Global Body Background */
+}
+
+.dark-theme .service-card {
+    background: #2A2831; /* Tier 3: Elevated Surfaces */
+    padding: 44px 32px;
+    border-radius: 18px;
+    border: 1px solid #383542; /* Dividers & subtle separators */
+}
+
+.dark-theme .service-card:hover {
+    border-color: #C85A32;
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.dark-theme .service-title {
+    color: #E8E8E8;
+}
+
+.dark-theme .service-description {
+    color: #A0AAB2;
+}

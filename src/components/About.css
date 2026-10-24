@@ -1,0 +1,175 @@
+.about-section {
+    background: var(--bg-secondary);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.about-description {
+    font-size: 18px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    font-weight: 400;
+    padding-bottom:5px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+    padding-top: 5px;
+    border-top: 1px solid var(--border-color);
+}
+
+.stat-item {
+    text-align: left;
+}
+
+.stat-number {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    letter-spacing: -2px;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.about-image {
+    position: relative;
+    height: 650px;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(44, 95, 93, 0.96);
+    color: var(--white);
+    padding: 24px 32px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+    .about-content {
+        gap: 80px;
+    }
+
+    .about-image {
+        height: 550px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+    }
+
+    .stat-number {
+        font-size: 42px;
+    }
+
+    .about-image {
+        height: 450px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .stat-number {
+        font-size: 48px;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .about-description {
+        font-size: 16px;
+    }
+
+    .about-image {
+        height: 400px;
+    }
+
+    .image-caption {
+        font-size: 14px;
+        padding: 20px 24px;
+    }
+}
+
+/* Dark Theme Specific About Rules (Tier 2 Alternating Section) */
+.dark-theme .about-section {
+    background: #1E1D24; /* Tier 2: Alternating Sections */
+}
+
+.dark-theme .stats {
+    border-top: 1px solid #383542; /* Divider */
+}
+
+.dark-theme .stat-number {
+    color: #C85A32; /* Rich Terracotta for 150+ */
+}
+
+.dark-theme .stat-label {
+    color: #A0AAB2;
+}
+
+.dark-theme .about-description {
+    color: #A0AAB2;
+}
+
+.dark-theme .about-image {
+    border-color: #383542; /* Divider */
+}
+
+.dark-theme .image-caption {
+    background: rgba(42, 40, 49, 0.95);
+    color: #E8E8E8;
+    border-top: 2px solid #C85A32;
+}

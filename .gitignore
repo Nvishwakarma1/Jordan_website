@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production / Build Output
+dist/
+dist-ssr/
+build/
+*.local
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Backups (kept locally, not pushed to repo)
+backup*/
+*backup*
+*.backup
+
+# Scratch / temporary files
+ChatGPT Image*
+src/components/frames 30fps/
