@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import logoPng from '../assets/Bhaiya.png'
+import SideRays from './SideRays'
 import './About.css'
 
 const useCountUp = (target, duration = 1800, start = false) => {
@@ -53,6 +54,26 @@ const About = () => {
 
     return (
         <section id="about" className="about-section" ref={sectionRef}>
+            {/* Ambient interactive SideRays background from React Bits */}
+            <div className="about-rays-wrapper">
+                <SideRays
+                    rayColor1="#F4D9A0"
+                    rayColor2="#C8792C"
+                    origin="top-right"
+                    speed={2.2}
+                    intensity={1.8}
+                    spread={2.4}
+                    density={6}
+                    sharpness={0.45}
+                    falloff={1.5}
+                    glow={1}
+                    dust={0.3}
+                    followMouse={true}
+                    mouseInfluence={0.4}
+                    opacity={0.8}
+                />
+            </div>
+
             <div className="about-content">
                 <div className="about-text reveal-left">
                     <span className="section-subtitle">About Me</span>

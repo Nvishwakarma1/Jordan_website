@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import StarBorder from './StarBorder'
 import './HeroSection.css'
 
 const HeroSection = () => {
@@ -50,6 +51,62 @@ const HeroSection = () => {
             {/* Subtle ambient grid background */}
             <div className="hero-bg-grid" />
 
+            {/* Volumetric diagonal sun rays streaming from top-left */}
+            <div className="hero-sun-rays" aria-hidden="true">
+                <div className="sun-source-glow" />
+                <div className="sun-conic-sweep" />
+                <svg className="sun-beams-svg" viewBox="0 0 1600 1000" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="beamGradPrimary" x1="0%" y1="0%" x2="70%" y2="70%">
+                            <stop offset="0%" stopColor="#FFF8E7" stopOpacity="0.55" />
+                            <stop offset="25%" stopColor="#F4D9A0" stopOpacity="0.32" />
+                            <stop offset="60%" stopColor="#C8792C" stopOpacity="0.12" />
+                            <stop offset="100%" stopColor="#C8792C" stopOpacity="0" />
+                        </linearGradient>
+                        <linearGradient id="beamGradSoft" x1="0%" y1="0%" x2="80%" y2="80%">
+                            <stop offset="0%" stopColor="#F4D9A0" stopOpacity="0.4" />
+                            <stop offset="35%" stopColor="#F4D9A0" stopOpacity="0.18" />
+                            <stop offset="70%" stopColor="#C8792C" stopOpacity="0.05" />
+                            <stop offset="100%" stopColor="#C8792C" stopOpacity="0" />
+                        </linearGradient>
+                        <linearGradient id="beamGradWarm" x1="0%" y1="0%" x2="85%" y2="85%">
+                            <stop offset="0%" stopColor="#FFF2D6" stopOpacity="0.48" />
+                            <stop offset="30%" stopColor="#F4D9A0" stopOpacity="0.22" />
+                            <stop offset="65%" stopColor="#C8792C" stopOpacity="0.08" />
+                            <stop offset="100%" stopColor="#C8792C" stopOpacity="0" />
+                        </linearGradient>
+                        <filter id="sunBlur">
+                            <feGaussianBlur stdDeviation="9" />
+                        </filter>
+                    </defs>
+                    <g filter="url(#sunBlur)">
+                        {/* Ray 1: steep narrow shaft */}
+                        <polygon points="-40,-40 220,1000 340,1000 -40,-40" fill="url(#beamGradSoft)" className="sun-ray ray-1" />
+                        {/* Ray 2: main bold architectural shaft */}
+                        <polygon points="-40,-40 450,1000 640,1000 -40,-40" fill="url(#beamGradPrimary)" className="sun-ray ray-2" />
+                        {/* Ray 3: middle radiant beam cutting across title */}
+                        <polygon points="-40,-40 760,1000 980,1000 -40,-40" fill="url(#beamGradWarm)" className="sun-ray ray-3" />
+                        {/* Ray 4: broad gentle diagonal shaft */}
+                        <polygon points="-40,-40 1100,1000 1380,1000 -40,-40" fill="url(#beamGradSoft)" className="sun-ray ray-4" />
+                        {/* Ray 5: low sweeping ray across carousel */}
+                        <polygon points="-40,-40 1600,720 1600,920 -40,-40" fill="url(#beamGradPrimary)" className="sun-ray ray-5" />
+                        {/* Ray 6: high ambient beam */}
+                        <polygon points="-40,-40 1600,340 1600,520 -40,-40" fill="url(#beamGradWarm)" className="sun-ray ray-6" />
+                    </g>
+                </svg>
+                {/* Floating sun dust motes drifting along the sunbeams */}
+                <div className="sun-dust-field">
+                    <span className="sun-mote mote-1" />
+                    <span className="sun-mote mote-2" />
+                    <span className="sun-mote mote-3" />
+                    <span className="sun-mote mote-4" />
+                    <span className="sun-mote mote-5" />
+                    <span className="sun-mote mote-6" />
+                    <span className="sun-mote mote-7" />
+                    <span className="sun-mote mote-8" />
+                </div>
+            </div>
+
             <div className="hero-content">
                 <div className="hero-text">
                     <div className="hero-brand-badge">
@@ -80,12 +137,29 @@ const HeroSection = () => {
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </button>
-                        <button
-                            className="btn-secondary"
+                        <StarBorder
+                            as="button"
+                            className="btn-secondary hero-star-border-btn"
                             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                            color="#F4D9A0"
+                            trailColor="#C8792C"
+                            duration={3.5}
+                            direction="clockwise"
+                            stars={1}
+                            trailLength={0.35}
+                            thickness={1.5}
+                            radius={10}
+                            glow={0.7}
+                            hover="lap"
+                            sparkle={true}
+                            clickPulse={true}
+                            theme="dark"
+                            backgroundColor="transparent"
+                            textColor="var(--text-primary)"
+                            borderColor="var(--border-color)"
                         >
                             Get In Touch
-                        </button>
+                        </StarBorder>
                     </div>
 
                     {/* Trust strip */}

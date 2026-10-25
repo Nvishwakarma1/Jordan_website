@@ -21,11 +21,11 @@
     font-weight: 600;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--accent-gold);
+    color: #C8792C;
     margin-bottom: 16px;
     padding: 5px 16px;
-    background: rgba(201, 169, 97, 0.08);
-    border: 1px solid rgba(201, 169, 97, 0.25);
+    background: rgba(244, 217, 160, 0.28);
+    border: 1px solid rgba(200, 121, 44, 0.35);
     border-radius: 100px;
 }
 
@@ -74,7 +74,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(196, 148, 91, 0.04) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(200, 121, 44, 0.05) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.4s ease;
     border-radius: 18px;
@@ -83,8 +83,8 @@
 
 .service-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.1);
-    border-color: rgba(201, 169, 97, 0.35);
+    box-shadow: 0 24px 64px rgba(88, 70, 50, 0.12);
+    border-color: rgba(200, 121, 44, 0.35);
 }
 
 .service-card:hover::before { opacity: 1; }
@@ -96,7 +96,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-gold), var(--primary-color));
+    background: linear-gradient(90deg, #F4D9A0, #C8792C);
     border-radius: 0 0 0 18px;
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -116,20 +116,20 @@
 .service-icon-bg {
     position: absolute;
     inset: 0;
-    background: rgba(196, 148, 91, 0.1);
+    background: rgba(244, 217, 160, 0.32);
     border-radius: 16px;
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .service-card:hover .service-icon-bg {
-    background: rgba(196, 148, 91, 0.18);
+    background: rgba(244, 217, 160, 0.5);
     transform: rotate(6deg);
 }
 
 .service-svg-icon {
     width: 32px;
     height: 32px;
-    color: var(--accent-gold);
+    color: #C8792C;
     position: relative;
     z-index: 1;
     transition: transform 0.3s ease, color 0.3s ease;
@@ -175,30 +175,30 @@
 }
 
 /* Dark Theme */
-.dark-theme .services-section { background-color: #151419; }
+.dark-theme .services-section { background-color: #17130F; }
 
 .dark-theme .service-card {
-    background: #2A2831;
-    border-color: #383542;
+    background: #2D251E;
+    border-color: #43372C;
 }
 
 .dark-theme .service-card:hover {
-    border-color: rgba(200, 90, 50, 0.5);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    border-color: rgba(200, 121, 44, 0.5);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
 }
 
 .dark-theme .service-card::before {
-    background: linear-gradient(135deg, rgba(200, 90, 50, 0.05) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(200, 121, 44, 0.08) 0%, transparent 60%);
 }
 
-.dark-theme .service-icon-bg { background: rgba(200, 90, 50, 0.1); }
-.dark-theme .service-card:hover .service-icon-bg { background: rgba(200, 90, 50, 0.18); }
-.dark-theme .service-svg-icon { color: #E2A765; }
-.dark-theme .service-title { color: #E8E8E8; }
-.dark-theme .service-description { color: #A0AAB2; }
-.dark-theme .service-card-accent { background: linear-gradient(90deg, #C85A32, #E2A765); }
+.dark-theme .service-icon-bg { background: rgba(200, 121, 44, 0.15); }
+.dark-theme .service-card:hover .service-icon-bg { background: rgba(200, 121, 44, 0.25); }
+.dark-theme .service-svg-icon { color: #F4D9A0; }
+.dark-theme .service-title { color: #F5EFEB; }
+.dark-theme .service-description { color: #B7ABA0; }
+.dark-theme .service-card-accent { background: linear-gradient(90deg, #C8792C, #F4D9A0); }
 .dark-theme .section-subtitle {
-    background: rgba(200, 90, 50, 0.08);
-    border-color: rgba(200, 90, 50, 0.25);
-    color: #E2A765;
+    background: rgba(200, 121, 44, 0.15);
+    border-color: rgba(200, 121, 44, 0.35);
+    color: #F4D9A0;
 }

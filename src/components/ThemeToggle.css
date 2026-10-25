@@ -70,24 +70,24 @@
 .theme-toggle:hover {
     background-color: var(--bg-secondary);
     transform: scale(1.1);
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+    color: #584632;
+    border-color: #584632;
 }
 
-/* Specific styles for when Dark Mode is active - uses Rich Terracotta #C85A32 */
+/* Specific styles for when Dark Mode is active - uses Burnt Amber #C8792C */
 .theme-toggle.dark-mode {
-    background: #2A2831;
-    border-color: #C85A32;
-    color: #C85A32;
-    box-shadow: 0 0 20px rgba(200, 90, 50, 0.35);
+    background: #2D251E;
+    border-color: #C8792C;
+    color: #C8792C;
+    box-shadow: 0 0 20px rgba(200, 121, 44, 0.35);
 }
 
 .theme-toggle.dark-mode:hover {
-    background-color: rgba(200, 90, 50, 0.15);
-    border-color: #C85A32;
-    color: #C85A32;
+    background-color: rgba(200, 121, 44, 0.18);
+    border-color: #C8792C;
+    color: #C8792C;
     transform: scale(1.12);
-    box-shadow: 0 0 25px rgba(200, 90, 50, 0.55);
+    box-shadow: 0 0 25px rgba(200, 121, 44, 0.55);
 }
 
 .toggle-icon {

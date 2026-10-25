@@ -28,9 +28,9 @@
     inset: 0;
     background: linear-gradient(
         135deg,
-        rgba(10, 8, 15, 0.75) 0%,
-        rgba(44, 95, 93, 0.12) 50%,
-        rgba(10, 8, 15, 0.75) 100%
+        rgba(15, 12, 10, 0.85) 0%,
+        rgba(88, 70, 50, 0.28) 50%,
+        rgba(15, 12, 10, 0.85) 100%
     );
     z-index: 1;
 }
@@ -50,8 +50,8 @@
 }
 
 .reviews-subtitle {
-    background: rgba(201, 169, 97, 0.12) !important;
-    border-color: rgba(201, 169, 97, 0.3) !important;
+    background: rgba(244, 217, 160, 0.15) !important;
+    border-color: rgba(244, 217, 160, 0.35) !important;
     color: var(--accent-gold) !important;
 }
 
@@ -91,7 +91,7 @@
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(201, 169, 97, 0.2);
+    border: 1px solid rgba(244, 217, 160, 0.25);
     border-radius: 20px;
     padding: 40px;
     transition: all 0.55s cubic-bezier(0.4, 0, 0.2, 1);
@@ -104,10 +104,10 @@
 }
 
 .review-card.active {
-    border-color: rgba(201, 169, 97, 0.45);
+    border-color: rgba(244, 217, 160, 0.5);
     box-shadow:
         0 30px 80px rgba(0, 0, 0, 0.55),
-        0 0 0 1px rgba(201, 169, 97, 0.1),
+        0 0 0 1px rgba(244, 217, 160, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.09);
 }
@@ -131,9 +131,9 @@
 }
 
 .star {
-    color: #C9A961;
+    color: #F4D9A0;
     font-size: 18px;
-    filter: drop-shadow(0 0 6px rgba(201, 169, 97, 0.7));
+    filter: drop-shadow(0 0 6px rgba(244, 217, 160, 0.7));
 }
 
 /* Review Text */
@@ -152,22 +152,22 @@
     align-items: center;
     gap: 14px;
     padding-top: 16px;
-    border-top: 1px solid rgba(201, 169, 97, 0.15);
+    border-top: 1px solid rgba(244, 217, 160, 0.2);
 }
 
 .reviewer-avatar {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-gold), #8B6914);
+    background: linear-gradient(135deg, #C8792C, #584632);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
     font-weight: 700;
-    color: #1a1409;
+    color: #ffffff;
     flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(201, 169, 97, 0.4);
+    box-shadow: 0 4px 16px rgba(200, 121, 44, 0.4);
     font-family: var(--font-heading);
 }
 
@@ -203,7 +203,7 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1.5px solid rgba(201, 169, 97, 0.4);
+    border: 1.5px solid rgba(244, 217, 160, 0.4);
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
     color: rgba(255, 255, 255, 0.8);
@@ -216,7 +216,7 @@
 
 .review-nav-btn:hover {
     border-color: var(--accent-gold);
-    background: rgba(201, 169, 97, 0.15);
+    background: rgba(244, 217, 160, 0.2);
     color: #ffffff;
     transform: scale(1.1);
 }
@@ -239,10 +239,10 @@
 }
 
 .review-dot.active {
-    background: var(--accent-gold);
+    background: #C8792C;
     width: 24px;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(201, 169, 97, 0.5);
+    box-shadow: 0 0 10px rgba(200, 121, 44, 0.6);
 }
 
 /* Responsive */
@@ -261,11 +261,11 @@
 
 /* Dark Theme (already dark by nature, minor overrides) */
 .dark-theme .review-bg { filter: brightness(0.15) blur(3px); }
-.dark-theme .review-card { border-color: rgba(200, 90, 50, 0.2); }
-.dark-theme .review-card.active { border-color: rgba(200, 90, 50, 0.45); }
-.dark-theme .star { color: #E2A765; }
-.dark-theme .reviewer-avatar { background: linear-gradient(135deg, #C85A32, #6B2A15); color: #fff; }
-.dark-theme .review-nav-btn { border-color: rgba(200, 90, 50, 0.4); }
-.dark-theme .review-nav-btn:hover { border-color: #C85A32; background: rgba(200, 90, 50, 0.15); }
-.dark-theme .review-dot.active { background: #C85A32; }
-.dark-theme .review-quote-mark { color: #C85A32; }
+.dark-theme .review-card { border-color: rgba(200, 121, 44, 0.25); }
+.dark-theme .review-card.active { border-color: rgba(200, 121, 44, 0.5); }
+.dark-theme .star { color: #F4D9A0; }
+.dark-theme .reviewer-avatar { background: linear-gradient(135deg, #C8792C, #584632); color: #fff; }
+.dark-theme .review-nav-btn { border-color: rgba(200, 121, 44, 0.4); }
+.dark-theme .review-nav-btn:hover { border-color: #C8792C; background: rgba(200, 121, 44, 0.2); }
+.dark-theme .review-dot.active { background: #C8792C; }
+.dark-theme .review-quote-mark { color: #C8792C; }

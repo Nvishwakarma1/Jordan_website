@@ -4,14 +4,15 @@
 :root {
     /* Interior Design Color Palette (Light Mode) */
     --bg-color: #FDFBF7;
-    --bg-secondary: #F5F1E8;
+    --bg-secondary: #F6F1EA;
     --surface-color: #FFFFFF;
-    --primary-color: #2C5F5D;
-    --accent-gold: #C9A961;
-    --text-primary: #1A1A1A;
-    --text-secondary: #555555;
-    --text-light: #999999;
-    --border-color: #E8DCC4;
+    --primary-color: #584632;
+    --accent-gold: #F4D9A0;
+    --accent-amber: #C8792C;
+    --text-primary: #1F1914;
+    --text-secondary: #5C5248;
+    --text-light: #9B9085;
+    --border-color: #E8DED1;
     --white: #FFFFFF;
 
     /* Typography Variables */
@@ -29,20 +30,20 @@
 
 /* Premium Dynamic Dark Theme: Three-Tier Depth System */
 .dark-theme {
-    --bg-color: #151419;
-    --bg-secondary: #1E1D24;
-    --bg-alternating: #1E1D24;
-    --surface-color: #2A2831;
-    --elevated-surface: #2A2831;
-    --white: #2A2831;
-    --border-color: #383542;
-    --divider-color: #383542;
-    --primary-color: #C85A32;
-    --accent-gold: #E2A765;
-    --accent-color: #C85A32;
-    --text-primary: #E8E8E8;
-    --text-secondary: #A0AAB2;
-    --text-light: #A0AAB2;
+    --bg-color: #17130F;
+    --bg-secondary: #211B15;
+    --bg-alternating: #211B15;
+    --surface-color: #2D251E;
+    --elevated-surface: #2D251E;
+    --white: #2D251E;
+    --border-color: #43372C;
+    --divider-color: #43372C;
+    --primary-color: #C8792C;
+    --accent-gold: #F4D9A0;
+    --accent-color: #C8792C;
+    --text-primary: #F5EFEB;
+    --text-secondary: #B7ABA0;
+    --text-light: #8E8175;
 }
 
 /* Typography Application */
@@ -157,38 +158,38 @@ body, html {
 .dark-theme body,
 .dark-theme html,
 .dark-theme .app-container {
-    background-color: #151419;
-    color: #E8E8E8;
+    background-color: #17130F;
+    color: #F5EFEB;
 }
 
 .dark-theme .hero-section,
 .dark-theme .services-section,
 .dark-theme .portfolio-section {
-    background-color: #151419;
+    background-color: #17130F;
 }
 
-.dark-theme .about-section { background-color: #1E1D24; }
-.dark-theme .contact-section { background-color: #1E1D24; }
+.dark-theme .about-section { background-color: #211B15; }
+.dark-theme .contact-section { background-color: #211B15; }
 
 .dark-theme .footer {
-    background-color: #1E1D24;
-    border-top: 1px solid #383542;
+    background-color: #211B15;
+    border-top: 1px solid #43372C;
 }
 
 .dark-theme .service-card {
-    background-color: #2A2831;
-    border: 1px solid #383542;
+    background-color: #2D251E;
+    border: 1px solid #43372C;
 }
 
 .dark-theme .contact-form {
-    background-color: #2A2831;
-    border: 1px solid #383542;
+    background-color: #2D251E;
+    border: 1px solid #43372C;
 }
 
 .dark-theme select,
 .dark-theme .form-group-estimate select,
 .dark-theme select option {
-    background-color: #2A2831 !important;
-    color: #E8E8E8 !important;
-    border-color: #383542 !important;
+    background-color: #2D251E !important;
+    color: #F5EFEB !important;
+    border-color: #43372C !important;
 }

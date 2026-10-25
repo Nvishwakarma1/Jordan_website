@@ -77,15 +77,15 @@
   height: 24px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(196, 148, 91, 0.65));
+  filter: drop-shadow(0 0 10px rgba(200, 121, 44, 0.65));
 }
 
 .frame-hud-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #c9a961;
-  box-shadow: 0 0 10px #c9a961;
+  background: #F4D9A0;
+  box-shadow: 0 0 10px #F4D9A0;
 }
 
 .frame-hud-name {
@@ -116,8 +116,8 @@
 
 .frame-skip-btn:hover {
   color: #ffffff;
-  border-color: #c9a961;
-  background: rgba(201, 169, 97, 0.2);
+  border-color: #F4D9A0;
+  background: rgba(244, 217, 160, 0.2);
   transform: translateY(-1px);
 }
 
@@ -135,11 +135,11 @@
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #c9a961;
+  color: #F4D9A0;
   margin-bottom: 1rem;
   padding: 0.35rem 1rem;
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(201, 169, 97, 0.3);
+  border: 1px solid rgba(244, 217, 160, 0.35);
   border-radius: 100px;
   backdrop-filter: blur(8px);
 }
@@ -190,14 +190,14 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 4px 16px rgba(201, 169, 97, 0.7));
+  filter: drop-shadow(0 4px 16px rgba(244, 217, 160, 0.7));
   animation: emblemFloat 3s ease-in-out infinite alternate;
 }
 
 .frame-end-emblem-glow {
   position: absolute;
   inset: -12px;
-  background: radial-gradient(circle, rgba(201, 169, 97, 0.4) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(244, 217, 160, 0.4) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -213,21 +213,21 @@
   gap: 0.75rem;
   padding: 0.9rem 2.2rem;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #0b0c0e;
-  background: linear-gradient(135deg, #c9a961 0%, #f3e5ab 50%, #aa820a 100%);
+  color: #17130F;
+  background: linear-gradient(135deg, #F4D9A0 0%, #C8792C 50%, #584632 100%);
   border: none;
   border-radius: 100px;
   cursor: pointer;
-  box-shadow: 0 8px 30px rgba(201, 169, 97, 0.45);
+  box-shadow: 0 8px 30px rgba(200, 121, 44, 0.45);
   transition: all 0.3s ease;
 }
 
 .frame-enter-website-btn:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 35px rgba(201, 169, 97, 0.65);
+  box-shadow: 0 12px 35px rgba(200, 121, 44, 0.65);
 }
 
 .frame-end-hint {
@@ -262,7 +262,7 @@
 
 .frame-scrub-fill {
   height: 100%;
-  background: linear-gradient(90deg, #c9a961, #f3e5ab);
+  background: linear-gradient(90deg, #C8792C, #F4D9A0);
   transition: width 0.1s linear;
 }
 
@@ -274,7 +274,7 @@
   font-size: 0.75rem;
   font-weight: bold;
   letter-spacing: 0.15em;
-  color: #c9a961;
+  color: #F4D9A0;
 }
 
 .frame-scrub-div {
@@ -305,7 +305,7 @@
 .frame-mouse-wheel {
   width: 2px;
   height: 6px;
-  background: #c9a961;
+  background: #F4D9A0;
   border-radius: 2px;
   margin-top: 5px;
   animation: wheelScroll 1.8s infinite;

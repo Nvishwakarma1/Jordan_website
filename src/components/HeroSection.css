@@ -15,7 +15,7 @@
     position: absolute;
     inset: 0;
     background-image:
-        radial-gradient(circle, rgba(196, 148, 91, 0.1) 1px, transparent 1px);
+        radial-gradient(circle, rgba(200, 121, 44, 0.12) 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
     z-index: 0;
@@ -25,17 +25,196 @@
 .hero-content {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
-    gap: 80px;
+    gap: 90px;
     align-items: center;
     position: relative;
+    z-index: 2;
+}
+
+/* =========================================================
+   VOLUMETRIC SUN RAYS — Diagonal Sunlight from Top-Left
+   ========================================================= */
+.hero-sun-rays {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     z-index: 1;
+    overflow: hidden;
+    transition: opacity 0.6s ease;
+}
+
+/* Bright radiant corona centered at top-left corner */
+.sun-source-glow {
+    position: absolute;
+    top: -140px;
+    left: -140px;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 45% 45%,
+        rgba(255, 250, 235, 0.85) 0%,
+        rgba(244, 217, 160, 0.5) 25%,
+        rgba(200, 121, 44, 0.2) 50%,
+        transparent 75%
+    );
+    filter: blur(28px);
+    pointer-events: none;
+    animation: sunCoronaBreath 7.5s ease-in-out infinite alternate;
+}
+
+/* Secondary conic sweep for atmospheric ambient depth */
+.sun-conic-sweep {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 140vw;
+    height: 140vh;
+    pointer-events: none;
+    background: conic-gradient(
+        from 115deg at 0% 0%,
+        transparent 0deg,
+        rgba(244, 217, 160, 0.07) 10deg,
+        rgba(255, 248, 230, 0.16) 18deg,
+        transparent 25deg,
+        rgba(200, 121, 44, 0.05) 32deg,
+        rgba(244, 217, 160, 0.12) 40deg,
+        transparent 52deg
+    );
+    filter: blur(35px);
+    transform-origin: 0 0;
+    animation: sunConicSway 13s ease-in-out infinite alternate;
+}
+
+/* SVG Beams container - breathing scale and gentle swaying */
+.sun-beams-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: 0% 0%;
+    animation: sunRaysBreath 8s ease-in-out infinite alternate;
+}
+
+/* Individual beam breathing pulses */
+.sun-ray.ray-1 { animation: rayPulse1 6.5s ease-in-out infinite alternate; }
+.sun-ray.ray-2 { animation: rayPulse2 8s ease-in-out infinite alternate 0.8s; }
+.sun-ray.ray-3 { animation: rayPulse3 7.2s ease-in-out infinite alternate 1.5s; }
+.sun-ray.ray-4 { animation: rayPulse1 9s ease-in-out infinite alternate 0.4s; }
+.sun-ray.ray-5 { animation: rayPulse2 7.8s ease-in-out infinite alternate 1.2s; }
+.sun-ray.ray-6 { animation: rayPulse3 8.5s ease-in-out infinite alternate 2s; }
+
+/* Floating sun dust motes drifting along the sunbeams */
+.sun-dust-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sun-mote {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 250, 238, 0.9);
+    box-shadow: 0 0 6px rgba(244, 217, 160, 0.95), 0 0 14px rgba(200, 121, 44, 0.45);
+    pointer-events: none;
+    opacity: 0;
+}
+
+.mote-1 { width: 3px; height: 3px; top: 12%; left: 16%; animation: floatMote 12s infinite ease-in-out; animation-delay: 0s; }
+.mote-2 { width: 4.5px; height: 4.5px; top: 22%; left: 24%; animation: floatMote 14s infinite ease-in-out; animation-delay: 2.2s; }
+.mote-3 { width: 2.5px; height: 2.5px; top: 32%; left: 34%; animation: floatMote 11s infinite ease-in-out; animation-delay: 4.5s; }
+.mote-4 { width: 3.5px; height: 3.5px; top: 18%; left: 38%; animation: floatMote 15s infinite ease-in-out; animation-delay: 1.2s; }
+.mote-5 { width: 2px; height: 2px; top: 40%; left: 45%; animation: floatMote 13s infinite ease-in-out; animation-delay: 6s; }
+.mote-6 { width: 4px; height: 4px; top: 28%; left: 52%; animation: floatMote 16s infinite ease-in-out; animation-delay: 3.5s; }
+.mote-7 { width: 3px; height: 3px; top: 48%; left: 58%; animation: floatMote 12.5s infinite ease-in-out; animation-delay: 5s; }
+.mote-8 { width: 2.5px; height: 2.5px; top: 15%; left: 62%; animation: floatMote 17s infinite ease-in-out; animation-delay: 7s; }
+
+/* Sun Rays Keyframes */
+@keyframes sunCoronaBreath {
+    0% {
+        transform: scale(0.92);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.14);
+        opacity: 0.98;
+    }
+    100% {
+        transform: scale(0.92);
+        opacity: 0.7;
+    }
+}
+
+@keyframes sunConicSway {
+    0% {
+        transform: rotate(-1.5deg) scale(0.98);
+        opacity: 0.75;
+    }
+    50% {
+        transform: rotate(2deg) scale(1.03);
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(-1.5deg) scale(0.98);
+        opacity: 0.75;
+    }
+}
+
+@keyframes sunRaysBreath {
+    0% {
+        opacity: 0.65;
+        transform: scale(0.98) rotate(0deg);
+    }
+    50% {
+        opacity: 0.94;
+        transform: scale(1.025) rotate(1.4deg);
+    }
+    100% {
+        opacity: 0.65;
+        transform: scale(0.98) rotate(0deg);
+    }
+}
+
+@keyframes rayPulse1 {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+@keyframes rayPulse2 {
+    0%, 100% { opacity: 0.58; }
+    50% { opacity: 0.95; }
+}
+
+@keyframes rayPulse3 {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1.05; }
+}
+
+@keyframes floatMote {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.85;
+    }
+    85% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(120px, 140px);
+        opacity: 0;
+    }
 }
 
 /* ---- Text Side ---- */
 .hero-text {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 3px;
 }
 
 /* Entry Animations */
@@ -61,8 +240,8 @@
     align-items: center;
     gap: 10px;
     padding: 7px 18px;
-    background: rgba(196, 148, 91, 0.08);
-    border: 1px solid rgba(196, 148, 91, 0.3);
+    background: rgba(244, 217, 160, 0.25);
+    border: 1px solid rgba(200, 121, 44, 0.35);
     border-radius: 100px;
     width: fit-content;
     backdrop-filter: blur(8px);
@@ -72,8 +251,8 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--accent-gold);
-    box-shadow: 0 0 10px rgba(201, 169, 97, 0.7);
+    background: #C8792C;
+    box-shadow: 0 0 10px rgba(200, 121, 44, 0.7);
     animation: pulseGlow 2s ease-in-out infinite;
     flex-shrink: 0;
 }
@@ -84,11 +263,11 @@
     font-weight: 600;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--accent-gold);
+    color: #C8792C;
 }
 
 .hero-title {
-    font-size: clamp(52px, 5.5vw, 84px);
+    font-size: clamp(52px, 5.5vw, 75px);
     font-weight: 700;
     line-height: 1.08;
     color: var(--text-primary);
@@ -115,7 +294,7 @@
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, var(--accent-gold), transparent);
+    background: linear-gradient(90deg, #F4D9A0, #C8792C);
     border-radius: 2px;
 }
 
@@ -152,12 +331,12 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 4px 20px rgba(44, 95, 93, 0.25);
+    box-shadow: 0 4px 20px rgba(88, 70, 50, 0.28);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(44, 95, 93, 0.4);
+    box-shadow: 0 8px 28px rgba(88, 70, 50, 0.42);
     filter: brightness(1.08);
 }
 
@@ -178,8 +357,30 @@
 .btn-secondary:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
-    background: rgba(44, 95, 93, 0.05);
+    background: rgba(88, 70, 50, 0.05);
     transform: translateY(-2px);
+}
+
+.btn-secondary.hero-star-border-btn {
+    border: none !important;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.btn-secondary.hero-star-border-btn:hover {
+    border: none !important;
+    background: rgba(88, 70, 50, 0.05);
+    color: var(--primary-color);
+}
+
+.dark-theme .btn-secondary.hero-star-border-btn {
+    border: none !important;
+}
+
+.dark-theme .btn-secondary.hero-star-border-btn:hover {
+    border: none !important;
+    background: rgba(200, 121, 44, 0.1);
+    color: #C8792C;
 }
 
 /* Trust Strip */
@@ -221,7 +422,7 @@
 /* ---- Carousel Side ---- */
 .hero-carousel-container {
     position: relative;
-    height: 560px;
+    height: 530px;
 }
 
 .cad-markers {
@@ -278,9 +479,9 @@
     position: absolute;
     bottom: -22px;
     right: 15px;
-    background: rgba(15, 17, 22, 0.92);
+    background: rgba(23, 19, 15, 0.92);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(196, 148, 91, 0.4);
+    border: 1px solid rgba(244, 217, 160, 0.4);
     padding: 6px 14px;
     border-radius: 6px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
@@ -288,7 +489,7 @@
 }
 
 .cad-blueprint-stamp:hover {
-    border-color: rgba(196, 148, 91, 0.75);
+    border-color: rgba(244, 217, 160, 0.75);
     transform: translateY(-2px);
 }
 
@@ -306,7 +507,7 @@
     font-size: 7px;
     font-weight: 600;
     letter-spacing: 1px;
-    color: rgba(200, 200, 200, 0.7);
+    color: rgba(245, 239, 235, 0.75);
     margin-top: 2px;
 }
 
@@ -434,23 +635,37 @@
 }
 
 /* ---- Dark Theme ---- */
-.dark-theme .hero-section { background: #151419; }
-.dark-theme .hero-bg-grid { background-image: radial-gradient(circle, rgba(200, 90, 50, 0.07) 1px, transparent 1px); }
-.dark-theme .hero-title { color: #E8E8E8; }
-.dark-theme .hero-title .highlight { color: #C85A32; }
-.dark-theme .hero-title .highlight::after { background: linear-gradient(90deg, #C85A32, transparent); }
-.dark-theme .hero-subtitle { color: #E2A765; }
-.dark-theme .hero-description { color: #A0AAB2; }
-.dark-theme .trust-number { color: #E8E8E8; }
-.dark-theme .trust-label { color: #A0AAB2; }
-.dark-theme .trust-divider { background: #383542; }
-.dark-theme .btn-primary { background: #C85A32; box-shadow: 0 4px 20px rgba(200, 90, 50, 0.3); }
-.dark-theme .btn-primary:hover { box-shadow: 0 8px 28px rgba(200, 90, 50, 0.5); }
-.dark-theme .btn-secondary { border-color: #383542; color: #E8E8E8; }
-.dark-theme .btn-secondary:hover { border-color: #C85A32; color: #C85A32; background: rgba(200, 90, 50, 0.06); }
+.dark-theme .hero-section { background: #17130F; }
+.dark-theme .hero-bg-grid { background-image: radial-gradient(circle, rgba(200, 121, 44, 0.1) 1px, transparent 1px); }
+.dark-theme .hero-title { color: #F5EFEB; }
+.dark-theme .hero-title .highlight { color: #C8792C; }
+.dark-theme .hero-title .highlight::after { background: linear-gradient(90deg, #C8792C, transparent); }
+.dark-theme .hero-subtitle { color: #F4D9A0; }
+.dark-theme .hero-description { color: #B7ABA0; }
+.dark-theme .trust-number { color: #F5EFEB; }
+.dark-theme .trust-label { color: #B7ABA0; }
+.dark-theme .trust-divider { background: #43372C; }
+.dark-theme .btn-primary { background: #C8792C; box-shadow: 0 4px 20px rgba(200, 121, 44, 0.35); }
+.dark-theme .btn-primary:hover { box-shadow: 0 8px 28px rgba(200, 121, 44, 0.55); }
+.dark-theme .btn-secondary { border-color: #43372C; color: #F5EFEB; }
+.dark-theme .btn-secondary:hover { border-color: #C8792C; color: #C8792C; background: rgba(200, 121, 44, 0.1); }
 .dark-theme .dimension-line,
-.dark-theme .dimension-marker { background: #C85A32; }
-.dark-theme .corner-marker { border-color: #C85A32; }
-.dark-theme .dimension-label { color: #C85A32; background: #151419; }
-.dark-theme .hero-brand-badge { background: rgba(200, 90, 50, 0.08); border-color: rgba(200, 90, 50, 0.3); }
-.dark-theme .hero-badge-dot { background: #C85A32; box-shadow: 0 0 10px rgba(200, 90, 50, 0.7); }
+.dark-theme .dimension-marker { background: #C8792C; }
+.dark-theme .corner-marker { border-color: #C8792C; }
+.dark-theme .dimension-label { color: #C8792C; background: #17130F; }
+.dark-theme .hero-brand-badge { background: rgba(200, 121, 44, 0.12); border-color: rgba(200, 121, 44, 0.35); }
+.dark-theme .hero-badge-dot { background: #C8792C; box-shadow: 0 0 10px rgba(200, 121, 44, 0.7); }
+
+.dark-theme .sun-source-glow {
+    background: radial-gradient(
+        circle at 45% 45%,
+        rgba(255, 248, 230, 0.88) 0%,
+        rgba(244, 217, 160, 0.55) 30%,
+        rgba(200, 121, 44, 0.25) 55%,
+        transparent 75%
+    );
+}
+
+.dark-theme .hero-sun-rays {
+    opacity: 0.95;
+}
