@@ -430,9 +430,9 @@
     }
 
     .estimate-button-vertical {
-        
+        margin-top: 100px;
         padding: 12px 6px;
-        border-radius: 12px 0 0 12px;
+        border-radius: 12px 12px 0 0;
     }
 
     .estimate-btn-text {
